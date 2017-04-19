@@ -1,6 +1,7 @@
 package service;
 
 import util.AppException;
+import util.MD5Util;
 import impl.UserDaoImpl;
 import dao.UserDao;
 
@@ -17,24 +18,70 @@ public class UserService {
 	    /**
 	     * 用户登录
 	     * @param name
-	     * @param password
+	     * @param password(未加密)
 	     * @return -1 登录失败   
-	     *          1 医生登录成功
-	     *          2 患者登录成功
+	     *          1 医生登录
+	     *          2 患者登录
 	     * @throws AppException
 	     */
-	    public int login(String name, String password) throws AppException
+	    public int login(String name, String password) 
 	    {
 	        int id = -1;
-
-	        try{
-	            id = userDao.login(name, password);
-	        }catch(AppException e){
-	            e.printStackTrace();
-	            throw new AppException("service/UserService/login");
-	        }
+	        
+            try {
+            	String encode = MD5Util.MD5(password);
+				id = userDao.login(name, encode);
+			} catch (AppException e) {
+				e.printStackTrace();
+			}
 
 	        return id;
+	    }
+	    
+
+	   /**
+	    * 
+	    * @Title: register 
+	    * @Description: 患者注册
+	    * @param username
+	    * @param password(未加密)
+	    * @return String
+	    */
+	    public String register(String username, String password)
+	    {
+	    	String message = "";
+	    	
+	    	try {
+	    		String encode = MD5Util.MD5(password);
+				message = userDao.register(username, encode);
+			} catch (AppException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	    	return message;
+	    }
+	    
+	    /**
+	     * 
+	     * @Title: adLogin 
+	     * @Description: 患者登录
+	     * @param username
+	     * @param password(未加密)
+	     * @return String
+	     */
+	    public String adLogin(String username, String password)
+	    {
+	    	String message = "";
+	    	
+	    	try {
+            	String encode = MD5Util.MD5(password);
+				message = userDao.adLogin(username, encode);
+			} catch (AppException e) {
+				e.printStackTrace();
+			}
+			
+			return message;
 	    }
 
 }

@@ -1,4 +1,4 @@
-#Wed Apr 19 08:41:39 CST 2017
+#Wed Apr 19 15:41:20 CST 2017
 semanticHighlighting.annotation.enabled=true
 semanticHighlighting.localVariableDeclaration.color=237,127,72
 java_comment_task_tag=154,140,124
@@ -22,7 +22,7 @@ java_doc_default=98,98,98
 semanticHighlighting.annotationElementReference.color=235,75,100
 spelling_locale_initialized=true
 java_doc_keyword=154,140,124
-org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
+org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates><template autoinsert\="false" context\="filecomment_context" deleted\="false" description\="Comment for created Java files" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.filecomment" name\="filecomment">/**   \r\n* @Title\: ${file_name}\r\n* @Description\:  \r\n* @author guwenyu\r\n* @date ${date} ${time}\r\n* @version V1.0   \r\n*/</template><template autoinsert\="false" context\="methodcomment_context" deleted\="false" description\="Comment for non-overriding methods" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.methodcomment" name\="methodcomment">/** \r\n * @Title\: ${enclosing_method} \r\n * @Description\: ${todo}\r\n * @param ${tags}  \r\n * @return ${return_type}    \r\n */</template><template autoinsert\="false" context\="newtype_context" deleted\="false" description\="Newly created files" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.newtype" name\="newtype">${filecomment}\r\n${package_declaration}\r\n\r\n/**   \r\n* @Title\: ${file_name}\r\n* @Description\:  \r\n* @author guwenyu\r\n* @date ${date} ${time}\r\n* @version V1.0   \r\n*/\r\n\r\n${typecomment}\r\n${type_declaration}</template></templates>
 org.eclipse.jdt.ui.editor.tab.width=
 semanticHighlighting.methodDeclarationName.color=30,181,64
 java_doc_tag=30,120,155

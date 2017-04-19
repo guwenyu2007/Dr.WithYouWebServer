@@ -48,24 +48,20 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		// 
-		try {
-			UserService service = new UserService();
-			System.out.println(name + "   " + password);
-			int id = service.login(name, password);
+		UserService service = new UserService();
+		System.out.println(name + "   " + password);
+		int id = service.login(name, password);
+		
+		// 医生登陆成功
+		if(id == 1){
+			// session记录用户名
+			HttpSession session = request.getSession();
+			session.setAttribute("username", name);
 			
-			// 医生登陆成功
-			if(id == 1){
-				// session记录用户名
-				HttpSession session = request.getSession();
-				session.setAttribute("username", name);
-				
-				// 定向至病人管理界面
-				response.sendRedirect("UserManage");
-			}
-		} catch (AppException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+			// 定向至病人管理界面
+			response.sendRedirect("UserManage");
+		}
+		
 	}
 
 }
