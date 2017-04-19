@@ -6,8 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.UserService;
+import util.Token;
 
 /**
  * Servlet implementation class AdLoginServlet
@@ -42,13 +44,22 @@ public class AdLoginServlet extends HttpServlet {
 		// 获取用户名密码
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
+		String token = Token.getToken();
 		
 		// 
 		UserService service = new UserService();
 		System.out.println(name + "   " + password);
-		String message = service.adLogin(name, password);
+		int id = service.adLogin(name, password, token);
 		
-		
+		// 医生登陆成功
+		if(id == 1){
+			// session记录用户token
+			HttpSession session = request.getSession();
+			session.setAttribute("token", token);
+			
+			// 定向至
+			response.sendRedirect("");
+		}
 	}
 
 }

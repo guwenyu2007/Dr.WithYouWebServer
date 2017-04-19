@@ -10,7 +10,7 @@ public interface UserDao {
 	 * @param password(“—º”√‹)
 	 * @return
 	 */
-    public int login(String name, String password) throws AppException;
+    public int login(String name, String password, String token) throws AppException;
 
     /**
      * 
@@ -23,5 +23,5 @@ public interface UserDao {
      */
     public String register(String username, String password) throws AppException;
     
-    public String adLogin(String name, String password) throws AppException;
+    public int adLogin(String name, String password, String token) throws AppException;
 }

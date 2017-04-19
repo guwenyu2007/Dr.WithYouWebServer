@@ -3,8 +3,8 @@ package model;
 public class User {
 	private String username;
     private String password;
-    private int isDoctor;  // true doctor false patient
-
+    private int isDoctor;  // 1 doctor 0 patient
+    private String token;
   
     // »¼Õß×¢²á£¨Ä¬ÈÏ£©
     public User(String username, String password){
@@ -35,6 +35,14 @@ public class User {
     public void setDoctor(int doctor) {
         isDoctor = doctor;
     }
+    
+    public void setToken(String token) {
+		this.token = token;
+	}
+    
+    public String getToken() {
+		return token;
+	}
 
 	
 }

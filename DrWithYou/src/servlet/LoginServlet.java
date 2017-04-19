@@ -11,11 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import service.UserService;
 import util.AppException;
+import util.Token;
 
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/Login")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -46,17 +47,18 @@ public class LoginServlet extends HttpServlet {
 		// 获取用户名密码
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
+		String token = Token.getToken();
 		
 		// 
 		UserService service = new UserService();
 		System.out.println(name + "   " + password);
-		int id = service.login(name, password);
+		int id = service.login(name, password, token);
 		
 		// 医生登陆成功
 		if(id == 1){
-			// session记录用户名
+			// session记录用户token
 			HttpSession session = request.getSession();
-			session.setAttribute("username", name);
+			session.setAttribute("token", token);
 			
 			// 定向至病人管理界面
 			response.sendRedirect("UserManage");

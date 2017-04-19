@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import util.AppException;
 import util.DBUtil;
+import util.Token;
 
 import dao.UserDao;
 
@@ -14,13 +15,12 @@ public class UserDaoImpl implements UserDao{
 
 	/**
 	 * 医生登录
-	 * @return -1  登录失败
+	 * @return  0  登录失败
 	 *          1  医生登录
-	 *          0  患者登录
 	 */
-	public int login(String name, String password) throws AppException {
+	public int login(String name, String password, String token) throws AppException {
 
-        int id = -1;
+        int id;
         Connection conn = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -31,22 +31,17 @@ public class UserDaoImpl implements UserDao{
             conn = DBUtil.getConnection();
 
             // 定义及预处理sql语句
-            String str = "SELECT bedoctor FROM user WHERE username = ? AND password = ?";
+            String str = "UPDATE user SET token = ? WHERE username = ? AND password = ? AND bedoctor = 1";
             st = conn.prepareStatement(str);
 
             // 设置参数
-            st.setString(1, name);
-            st.setString(2, password);
+            st.setString(1, token);
+            st.setString(2, name);
+            st.setString(3, password);
 
-            // ִ执行sql语句
-            rs = st.executeQuery();
-
-            // 判断处理结果
-            if(rs.next()){
-                id = rs.getInt("bedoctor");
-                //id = rs.getConcurrency();
-            }
-
+            // 执行sql语句
+            // id = 0 更新不成功
+            id = st.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,8 +110,8 @@ public class UserDaoImpl implements UserDao{
 	 * 患者登录
 	 * @return "true""false"
 	 */
-	public String adLogin(String name, String password) throws AppException{
-		String message = "";
+	public int adLogin(String name, String password, String token) throws AppException{
+		int id;
         Connection conn = null;
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -127,21 +122,17 @@ public class UserDaoImpl implements UserDao{
             conn = DBUtil.getConnection();
 
             // 定义及预处理sql语句
-            String str = "SELECT * FROM user WHERE username = ? AND password = ? AND bedoctor = 0";
+            String str = "UPDATE user SET token = ? WHERE username = ? AND password = ? AND bedoctor = 0";
             st = conn.prepareStatement(str);
 
             // 设置参数
-            st.setString(1, name);
-            st.setString(2, password);
+            st.setString(1, token);
+            st.setString(2, name);
+            st.setString(3, password);
 
-            // ִ执行sql语句
-            rs = st.executeQuery();
+            // 执行sql语句
+            id = st.executeUpdate();
 
-            // 判断处理结果
-            if(rs.next())
-            	message = "true";
-            else
-            	message = "false";               
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -153,6 +144,6 @@ public class UserDaoImpl implements UserDao{
             DBUtil.closeStatement(st);     //     sql语句
             DBUtil.closeConection(conn);   //     连接
         }
-        return message;
+        return id;
 	}
 }

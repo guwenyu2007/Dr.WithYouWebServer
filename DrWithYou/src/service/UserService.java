@@ -16,21 +16,20 @@ public class UserService {
 
 
 	    /**
-	     * ÓÃ»§µÇÂ¼
+	     * Ò½ÉúµÇÂ¼
 	     * @param name
 	     * @param password(Î´¼ÓÃÜ)
-	     * @return -1 µÇÂ¼Ê§°Ü   
-	     *          1 Ò½ÉúµÇÂ¼
-	     *          2 »¼ÕßµÇÂ¼
+	     * @return  0  µÇÂ¼Ê§°Ü   
+	     *          1  Ò½ÉúµÇÂ¼³É¹¦
 	     * @throws AppException
 	     */
-	    public int login(String name, String password) 
+	    public int login(String name, String password, String token) 
 	    {
-	        int id = -1;
+	        int id = 0;
 	        
             try {
             	String encode = MD5Util.MD5(password);
-				id = userDao.login(name, encode);
+				id = userDao.login(name, encode, token);
 			} catch (AppException e) {
 				e.printStackTrace();
 			}
@@ -70,18 +69,18 @@ public class UserService {
 	     * @param password(Î´¼ÓÃÜ)
 	     * @return String
 	     */
-	    public String adLogin(String username, String password)
+	    public int adLogin(String username, String password, String token)
 	    {
-	    	String message = "";
+	    	int id = 0;
 	    	
 	    	try {
             	String encode = MD5Util.MD5(password);
-				message = userDao.adLogin(username, encode);
+				id = userDao.adLogin(username, encode, token);
 			} catch (AppException e) {
 				e.printStackTrace();
 			}
 			
-			return message;
+			return id;
 	    }
 
 }
