@@ -3,14 +3,13 @@ package model;
 public class User {
 	private String username;
     private String password;
-    private boolean isDoctor;  // true doctor false patient
+    private int isDoctor;  // true doctor false patient
 
   
     // »¼Õß×¢²á£¨Ä¬ÈÏ£©
     public User(String username, String password){
         this.username = username;
         this.password = password;
-        isDoctor = false;
     }
 
     public String getUsername() {
@@ -29,11 +28,11 @@ public class User {
         this.password = password;
     }
 
-    public boolean isDoctor() {
+    public int isDoctor() {
         return isDoctor;
     }
 
-    public void setDoctor(boolean doctor) {
+    public void setDoctor(int doctor) {
         isDoctor = doctor;
     }
 
