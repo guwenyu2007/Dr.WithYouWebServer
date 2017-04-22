@@ -4,24 +4,16 @@ import util.AppException;
 
 public interface UserDao {
 	
-	/**
-	 * 医生登录
-	 * @param name
-	 * @param password(已加密)
-	 * @return
-	 */
+	// 医生登陆
     public int login(String name, String password, String token) throws AppException;
 
-    /**
-     * 
-     * @Title: register 
-     * @Description: TODO
-     * @param username
-     * @param password(已加密)
-     * @param @return
-     * @return String
-     */
+    // 病人注册
     public String register(String username, String password) throws AppException;
     
+    // 病人登录
     public int adLogin(String name, String password, String token) throws AppException;
+    
+    // 判断用户名是否已存在
+    public boolean isExist(String username) throws AppException;
+
 }
