@@ -146,4 +146,48 @@ public class UserDaoImpl implements UserDao{
         }
         return id;
 	}
+
+	/**
+	 * 判断用户名是否存在
+	 * @param username 用户名
+	 * @return true/false
+	 */
+	public boolean isExist(String username) throws AppException{
+		
+		boolean result = false;
+		
+		Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            // 创建数据库连接
+            conn = DBUtil.getConnection();
+
+            // 定义及预处理sql语句
+            String str = "SELECT * from userinfo WHERE username = ?";
+            st = conn.prepareStatement(str);
+
+            // 设置参数
+            st.setString(1, username);
+
+            // 执行sql语句
+            rs = st.executeQuery(str);
+            if(rs.next())
+            	result = true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new AppException("/impl/UserDaoImpl/isExist");
+        }finally
+        {
+            // 关闭连接
+            DBUtil.closeResultSet(rs);     // 关闭数据集
+            DBUtil.closeStatement(st);     //     sql语句
+            DBUtil.closeConection(conn);   //     连接
+        }
+		
+		return result;
+	}
 }
