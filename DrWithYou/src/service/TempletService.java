@@ -125,5 +125,15 @@ public class TempletService {
 		int id = templetDao.addTempletCheck(tid, cid);
 		return id;
 	}
+	
+	/**
+	 * 获取模板的所有检查项id
+	 * @param tid
+	 * @return
+	 */
+	public ArrayList<Integer> getTempletCheck(int tid){
+		ArrayList<Integer> list = templetDao.getTempletCheck(tid);
+		return list;
+	}
 
 }

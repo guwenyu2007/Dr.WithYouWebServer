@@ -151,7 +151,7 @@
 
                         </li>
                          <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="logout" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="ti-panel"></i>
                                 <p>退出</p>
                             </a>
@@ -209,6 +209,7 @@
                                     <tbody>
                                         
                                         <% ArrayList<Checklist> list = (ArrayList<Checklist>)request.getAttribute("list"); %>
+                                        <% ArrayList<Integer> checklist = (ArrayList<Integer>)request.getAttribute("checklist"); %>
 	                                    <%
 	                                    	if(list != null){
 		                                    	Iterator<Checklist> iter = list.iterator(); 
@@ -217,7 +218,8 @@
 									    %>
                                            
                                         <tr>
-                                            <td ><input type="checkbox" name="旅游" checked="checked" id="<%= c.getCid()%>"/></td>
+                                            <td ><input type="checkbox" name="旅游" 
+                                                             <% if(checklist.contains(c.getCid())){ %> checked="checked" <%} %>id="<%= c.getCid()%>"/></td>
                                             <td><%= c.getChecklist_name() %></td>
                                             <td><%= c.getChecktime() %></td>
                                             <td><%= c.getDescription() %></td>                                    

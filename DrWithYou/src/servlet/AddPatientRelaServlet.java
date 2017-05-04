@@ -47,9 +47,10 @@ public class AddPatientRelaServlet extends HttpServlet {
 		else
 			message = "添加失败";
 		System.out.println("message = " + message);
-		request.setAttribute("message", message);
-		request.getRequestDispatcher("/addPatient.jsp").forward(request, response);
 		
+		// 设置编码
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(message);		
 	}
 
 	/**

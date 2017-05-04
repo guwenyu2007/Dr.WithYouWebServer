@@ -61,6 +61,10 @@ public class EditTempletServlet extends HttpServlet {
 		ArrayList<Checklist> list = chservice.getCheckList(username);
 		request.setAttribute("list", list);
 		
+		// 获取模板检查项
+		ArrayList<Integer> checklist = service.getTempletCheck(tid);
+		request.setAttribute("checklist", checklist);
+		
 		request.getRequestDispatcher("/editTemplet.jsp").forward(request, response);
 	}
 

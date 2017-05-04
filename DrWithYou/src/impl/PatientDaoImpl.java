@@ -30,7 +30,7 @@ public class PatientDaoImpl implements PatientDao{
 			conn = DBUtil.getConnection();
 
 			// 定义及预处理sql语句
-			String str = "SELECT * FROM userinfo)";
+			String str = "SELECT * FROM userinfo";
 			st = conn.prepareStatement(str);
 			
 
@@ -46,7 +46,7 @@ public class PatientDaoImpl implements PatientDao{
 				patient.setSex(rs.getString("sex"));
 				patient.setIdCard(rs.getString("idcard"));
 				list.add(patient);
-				System.out.println(patient.getPatient_name() + "   " + patient.getPhone());
+				System.out.println("all patient\t" + patient.getPatient_name() + "   " + patient.getPhone());
 			}
 
 		} catch (SQLException e) {
@@ -140,7 +140,7 @@ public class PatientDaoImpl implements PatientDao{
 				patient.setIllness(rs.getString("illness"));
 				patient.setIdCard(rs.getString("idcard"));
 				list.add(patient);
-				System.out.println(patient.getPatient_name() + "   " + patient.getPhone());
+				System.out.println("doc patient\t" + patient.getPatient_name() + "   " + patient.getPhone());
 			}
 
 		} catch (SQLException e) {

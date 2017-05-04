@@ -22,10 +22,25 @@ public class PatientService {
 	 * 获取所有病人信息列表
 	 * @return
 	 */
-	public ArrayList<Patient> getAllPatient(){
-		ArrayList<Patient> list = patientDao.getAllPatients();
+	public ArrayList<Patient> getNonAddPatient(String username){
+		ArrayList<Patient> list = patientDao.getAllPatients(); // 所有病人
+		ArrayList<Patient> mylist = patientDao.getDocPatients(username);
 		
-		return list;
+		ArrayList<Patient> result = new ArrayList<Patient>();
+		for(Patient temp: list){
+			boolean flag = false;
+			for(Patient compare: mylist){
+				if(temp.getPatient_name().equals(compare.getPatient_name())){
+					flag = true;
+					break;
+				}		
+			}	
+			
+			if(!flag)
+				result.add(temp);
+		}
+	           
+		return result;
 	}
 	
 	/**
@@ -48,19 +63,12 @@ public class PatientService {
 	
 	/**
 	 * 获取医生的所有患者
-	 * @param token 
+	 * @param username 医生用户名
 	 * @return
 	 */
-	public ArrayList<Patient> getDoctorPatients(String token){
+	public ArrayList<Patient> getDoctorPatients(String username){
 		
-		ArrayList<Patient> list = null;
-		
-		// 根据token 获取医生用户名
-		String username = userDao.getUsername(token);
-		if(username != ""){
-			list = patientDao.getDocPatients(username);
-		}
-		
+		ArrayList<Patient> list = patientDao.getDocPatients(username);		
 		return list;
 	}
 	

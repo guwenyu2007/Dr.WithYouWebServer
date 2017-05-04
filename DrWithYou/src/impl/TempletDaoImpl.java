@@ -306,4 +306,43 @@ public class TempletDaoImpl implements TempletDao{
         return result;
 	}
 
+	// 获取所有模板对应的检查项
+	public ArrayList<Integer> getTempletCheck(int tid){
+		
+		ArrayList<Integer> list = new ArrayList<Integer> ();
+		
+		Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        
+        try {
+            // 创建数据库连接
+            conn = DBUtil.getConnection();
+
+            // 设置sql语句
+            String str = "SELECT * FROM templetcheckitem WHERE tid = '" + tid + "'";
+            st = conn.prepareStatement(str);
+
+            // 设置参数
+//            st.setString(1, username);
+
+            // 执行sql
+            rs = st.executeQuery(str);
+            while(rs.next()){
+            	int temp = rs.getInt("cid");
+            	list.add(temp);            	
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally
+        {
+            // 关闭数据库连接
+            DBUtil.closeResultSet(rs);     
+            DBUtil.closeStatement(st);    
+            DBUtil.closeConection(conn);   
+        }
+		
+		return list;	
+	}
 }

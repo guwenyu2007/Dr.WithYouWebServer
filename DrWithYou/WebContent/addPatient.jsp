@@ -31,17 +31,21 @@
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/themify-icons.css" rel="stylesheet">
     
-    <script>
-	function varify()
-	{
-		if(session.getAttribute("token")==null){
-			{
-				alert("您未登陆，请先登陆！");
-				 request.getRequestDispatcher("login").forward(request, response);
-		    }
+   <script type="text/javascript">
+		function submit(patientusr){	
+			
+			alert("in");
+			
+		    $.ajax({
+                 type: "get",
+                 url: "AddPatient",
+                 data: {username: patientusr},//提交表单，相当于CheckCorpID.ashx?ID=XXX
+                 contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+                 success: function(msg){
+                	    alert(msg); window.location.href = "UserManage"}
+                }); 
 		}
-	}
- 	</script>
+	</script>
 
 </head>
 <body>
@@ -52,12 +56,6 @@
        if(token == null){
        		request.getRequestDispatcher("login").forward(request, response);}%>
      
-       <% String message = (String)request.getAttribute("message"); %>
-       <% if(message != null) {%>
-       <script type="text/javascript">  
-           alert(message);  
-       </script>
-       <%} %>
 	<div class="sidebar" data-background-color="white" data-active-color="danger">
     <!--
 		Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
@@ -197,8 +195,8 @@
                                                          <span><small>证件号：<%= p.getIdCard() %></small></span><br />
                                                        
                                                     </div>
-                                           			<div class="col-xs-3 text-right"></br>                    
-                                             			<button onclick="window.location.href='AddPatient?username=<%= p.getUsername()%>'">添加</button>   
+                                           			<div class="col-xs-3 text-right">               
+                                             			<input type="button" value="添加" onclick="submit('<%= p.getUsername()%>')">
                                                     </div>
 
                                                 </div>
@@ -211,11 +209,6 @@
                                    </div>
                                 </div>
                            </div>
-
-               
-      
-
-
 </body>
 
     <!--   Core JS Files   -->
@@ -231,18 +224,10 @@
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
 
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-
     <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 	<script src="assets/js/paper-dashboard.js"></script>
 
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-
-        });
-    </script>
 
 </html>

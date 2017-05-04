@@ -41,13 +41,14 @@ public class AddPatientServlet extends HttpServlet {
 			request.getRequestDispatcher("/login").forward(request, response);
 		// 获取用户名
 		String username = new UserService().getUsername(token);
+		System.out.println("username = " + username);
 		if(username == "")
 			request.getRequestDispatcher("/login").forward(request, response);
 		
-		
-		ArrayList<Patient> list = new PatientService().getAllPatient();
+		// 所有未添加的病人列表
+		ArrayList<Patient> list = new PatientService().getNonAddPatient(username);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/addPatient").forward(request, response);
+		request.getRequestDispatcher("/addPatient.jsp").forward(request, response);
 	}
 
 	/**

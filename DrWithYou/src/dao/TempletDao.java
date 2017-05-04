@@ -26,5 +26,8 @@ public interface TempletDao {
 	
 	// 添加模板和检查项关系
 	public int addTempletCheck(int tid, int cid);
+	
+	// 获取所有模板对应的检查项id
+	public ArrayList<Integer> getTempletCheck(int tid);
 
 }

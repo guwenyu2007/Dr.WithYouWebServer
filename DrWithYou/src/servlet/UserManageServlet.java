@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Patient;
 import service.PatientService;
+import service.UserService;
 
 /**
  * Servlet implementation class UserManageServlet
@@ -37,9 +38,14 @@ public class UserManageServlet extends HttpServlet {
 		if(token == "" || token == null)
 			request.getRequestDispatcher("/login").forward(request, response);
 		
+		// token -> username
+		String username = new UserService().getUsername(token);
+		if(username == "" || username == null)
+			request.getRequestDispatcher("/login").forward(request, response);
+		
 		// 获取list
 		PatientService service = new PatientService();
-		ArrayList<Patient> list = service.getDoctorPatients(token);
+		ArrayList<Patient> list = service.getDoctorPatients(username);
 		
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/userManagement.jsp").forward(request, response);
