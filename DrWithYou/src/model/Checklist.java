@@ -1,16 +1,25 @@
 package model;
 
 /**
- * ¼ì²éÏî
+ * ï¿½ï¿½ï¿½ï¿½ï¿½
  * @author jh
  */
 public class Checklist {
 	
+	private int cid;
 	private String checklist_name;
 	private String checktime;
 	private String creator;   // username
 	private String description;
 	
+	public int getCid() {
+		return cid;
+	}
+
+	public void setCid(int cid) {
+		this.cid = cid;
+	}
+
 	public String getChecklist_name() {
 		return checklist_name;
 	}

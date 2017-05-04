@@ -37,7 +37,7 @@
             <a class="hiddenanchor" id="tologin"></a>
             <div id="wrapper">
                 <div id="login" class="animate form">
-                    <form action = "Login" method = "post">
+                    <form action = "login" method = "post">
                         <h1>Log in</h1>
                         <p>
                             <label for="username" data-icon="u" > 用户名 </label>

@@ -30,7 +30,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/themify-icons.css" rel="stylesheet">
-
+    
     <script>
 	function varify()
 	{
@@ -42,15 +42,23 @@
 		}
 	}
  	</script>
+
 </head>
 <body>
 
 <div class="wrapper">
-	<div class="sidebar" data-background-color="white" data-active-color="danger">
 
-    <% String token=(String)session.getAttribute("token");
+       <% String token=(String)session.getAttribute("token");
        if(token == null){
-       request.getRequestDispatcher("login").forward(request, response);}%>
+       		request.getRequestDispatcher("login").forward(request, response);}%>
+     
+       <% String message = (String)request.getAttribute("message"); %>
+       <% if(message != null) {%>
+       <script type="text/javascript">  
+           alert(message);  
+       </script>
+       <%} %>
+	<div class="sidebar" data-background-color="white" data-active-color="danger">
     <!--
 		Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
 		Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
@@ -59,7 +67,7 @@
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a class="simple-text">
-                    医路相随
+                    	医路相随
                 </a>
             </div>
 
@@ -136,7 +144,7 @@
                               </ul>
                         </li>
                          <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="logout" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="ti-panel"></i>
                                 <p>退出</p>
                             </a>
@@ -155,51 +163,48 @@
                                              
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">病人管理列表</h4> <br />
+                                <h4 class="title">所有病人</h4> <br />
                                <div class="text-right">
-                                <a href="addPatient">
-                                        <button   class="btn btn-info btn-fill btn-wd">添加病人</button>
-                                    </a>
-                                </div>
+                               
+                                <input type="text" placeholder="搜索关键字" >&nbsp
+                                        <button  type="button" >搜索</button>
+                                  
+                                    </div>
                             </div>
                             <div class="content">
 
                                 <ul class="list-unstyled team-members">
-                                <% ArrayList<Patient> list = (ArrayList<Patient>)request.getAttribute("list"); %>
-                                <%
+                                 <% ArrayList<Patient> list = (ArrayList<Patient>)request.getAttribute("list"); %>
+                                 <%
                                     	if(list != null){
 	                                    	Iterator iter = list.iterator(); 
 											while(iter.hasNext()) { 									
 												Patient p = (Patient)iter.next();
-								%>
+								 %>
+                                            
                                             <li>
-                                                 <button type="button" aria-hidden="true" class="close">×</button>
-
                                                 <div class="row">
-                                                    <div class="col-xs-3">  
-                                                         <a href="data.html">
-                                                        <div class="avatar">
-                                                            <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                        </div></a>
+                                                    <div class="col-xs-3">
+                                                        <div class="avatar" >
+                                                            <img src="assets/img/faces/face-1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive" >
+                                                        </div>
+                                                      
                                                     </div>
                                                     <div class="col-xs-6">
-                                                        	<%= p.getPatient_name() %> - <%= p.getSex() %>
+                                                      		   <%= p.getPatient_name() %> - <%= p.getSex() %>
                                                         <br />
-                                                        <span><small>联系方式：<%= p.getPhone() %></small></span><br />
+                                                     <span><small>联系方式：<%= p.getPhone() %></small></span><br />
                                                          <span><small>证件号：<%= p.getIdCard() %></small></span><br />
-                                                        <span><small>病情描述：<%= p.getIllness() %></small></span>
+                                                       
                                                     </div>
-                                                   
-                                                    <div class="col-xs-3 text-right"></br>
+                                           			<div class="col-xs-3 text-right"></br>                    
+                                             			<button onclick="window.location.href='AddPatient?username=<%= p.getUsername()%>'">添加</button>   
+                                                    </div>
 
-                                                       <a href="aaaaaaaaaaaaa.html">
-                                                        <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn></a>
-                                                    </a>
                                                 </div>
                                             </li>
                                             
-                                            <% }}%>   
-
+                                            <% }}%> 
                                            
                                         </ul>
                                       </div>
@@ -236,17 +241,6 @@
 	<script src="assets/js/demo.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-
-           
-
-            $.notify({
-                icon: 'ti-gift',
-                message: "欢迎您回到 <b>医路相随－医生端</b>"
-
-            },{
-                type: 'success',
-                timer: 4000
-            });
 
         });
     </script>

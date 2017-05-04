@@ -1,19 +1,21 @@
 package dao;
 
-import util.AppException;
 
 public interface UserDao {
 	
-	// Ò½ÉúµÇÂ½
-    public int login(String name, String password, String token) throws AppException;
+	// åŒ»ç”Ÿç™»é™†
+    public int login(String name, String password, String token);
 
-    // ²¡ÈË×¢²á
-    public String register(String username, String password) throws AppException;
+    // ç—…äººæ³¨å†Œ
+    public String register(String username, String password);
     
-    // ²¡ÈËµÇÂ¼
-    public int adLogin(String name, String password, String token) throws AppException;
+    // ç—…äººç™»å½•
+    public int adLogin(String name, String password, String token);
     
-    // ÅĞ¶ÏÓÃ»§ÃûÊÇ·ñÒÑ´æÔÚ
-    public boolean isExist(String username) throws AppException;
+    // åˆ¤æ–­ç”¨æˆ·åæ˜¯å¦å­˜åœ¨
+    public boolean isExist(String username);
+    
+    // æ ¹æ®token è·å¾—ç”¨æˆ·å
+    public String getUsername(String token);
 
 }

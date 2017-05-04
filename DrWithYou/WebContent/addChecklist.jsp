@@ -1,6 +1,4 @@
 ﻿<!doctype html>
-<%@page import="java.util.*"%>
-<%@page import="model.Patient"%>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -31,26 +29,28 @@
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/themify-icons.css" rel="stylesheet">
 
-    <script>
-	function varify()
-	{
-		if(session.getAttribute("token")==null){
-			{
-				alert("您未登陆，请先登陆！");
-				 request.getRequestDispatcher("login").forward(request, response);
-		    }
+	<script type="text/javascript">
+		function submit(){		
+			
+		    $.ajax({
+                 type: "post",
+                 url: "addChecklist",
+                 data: {itemname: $("input[name=itemname]").val(),
+                	    checktime: $("input[name=checktime]").val(),
+                	    description: $("input[name=description]").val()},//提交表单，相当于CheckCorpID.ashx?ID=XXX
+                 contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+                 success: function(msg){
+                	    alert(msg); window.location.href = "checklist"}
+                }); 
 		}
-	}
- 	</script>
+	
+	</script>
 </head>
 <body>
 
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="danger">
 
-    <% String token=(String)session.getAttribute("token");
-       if(token == null){
-       request.getRequestDispatcher("login").forward(request, response);}%>
     <!--
 		Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
 		Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
@@ -58,31 +58,33 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a class="simple-text">
+                <a  class="simple-text">
                     医路相随
                 </a>
             </div>
 
             <ul class="nav">
-                <li class="active">
+               
+                <li >
                     <a href="UserManage">
                         <i class="ti-user"></i>
                         <p>病人管理</p>
                     </a>
                 </li>
-                 <li >
+               
+                <li >
                     <a href="bingqing.html">
                         <i class="ti-view-list-alt"></i>
                         <p>病情管理</p>
                     </a>
-                </li>
-                <li>
+                </li> 
+                 <li >
                     <a href="templet">
                         <i class="ti-panel"></i>
                         <p>模版管理</p>
                     </a>
                 </li>
-                  <li>
+              <li class="active">
                     <a href="checklist">
                         <i class="ti-pencil-alt2"></i>
                         <p>检查项设置</p>
@@ -136,10 +138,7 @@
                               </ul>
                         </li>
                          <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="ti-panel"></i>
-                                <p>退出</p>
-                            </a>
+                            <a href="logout" class="dropdown-toggle" data-toggle="dropdown"><i class="ti-panel"></i>退出 </a>
                         </li>
 						
                     </ul>
@@ -152,63 +151,51 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                                             
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">病人管理列表</h4> <br />
-                               <div class="text-right">
-                                <a href="addPatient">
-                                        <button   class="btn btn-info btn-fill btn-wd">添加病人</button>
-                                    </a>
-                                </div>
-                            </div>
+                                <h4 class="title">添加检查项</h4> <br />
+                               <div class="card">
+                           
                             <div class="content">
+                                                            
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>检查项名称</label>
+                                                <input type="text" id="itemname" name="itemname"class="form-control border-input" placeholder="e.g. 血糖检查项">
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
 
-                                <ul class="list-unstyled team-members">
-                                <% ArrayList<Patient> list = (ArrayList<Patient>)request.getAttribute("list"); %>
-                                <%
-                                    	if(list != null){
-	                                    	Iterator iter = list.iterator(); 
-											while(iter.hasNext()) { 									
-												Patient p = (Patient)iter.next();
-								%>
-                                            <li>
-                                                 <button type="button" aria-hidden="true" class="close">×</button>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>检查时间</label>
+                                                <input type="text" id="checktime" name="checktime" class="form-control border-input" placeholder="e.g. 晚饭前">
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                                <div class="row">
-                                                    <div class="col-xs-3">  
-                                                         <a href="data.html">
-                                                        <div class="avatar">
-                                                            <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                        </div></a>
-                                                    </div>
-                                                    <div class="col-xs-6">
-                                                        	<%= p.getPatient_name() %> - <%= p.getSex() %>
-                                                        <br />
-                                                        <span><small>联系方式：<%= p.getPhone() %></small></span><br />
-                                                         <span><small>证件号：<%= p.getIdCard() %></small></span><br />
-                                                        <span><small>病情描述：<%= p.getIllness() %></small></span>
-                                                    </div>
-                                                   
-                                                    <div class="col-xs-3 text-right"></br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>描述</label>
+                                                <textarea rows="5" id="description" name="description" class="form-control border-input" placeholder="e.g. 检查项描述"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <input type="button" class="btn btn-info btn-fill btn-wd" onclick=submit() value="确认添加">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                
+                            </div>
 
-                                                       <a href="aaaaaaaaaaaaa.html">
-                                                        <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn></a>
-                                                    </a>
-                                                </div>
-                                            </li>
-                                            
-                                            <% }}%>   
-
-                                           
-                                        </ul>
-                                      </div>
-                                   </div>
-                                </div>
-                           </div>
-
-               
-      
+                           
+                        </div>
+                    </div>
 
 
 </body>
@@ -239,15 +226,7 @@
 
            
 
-            $.notify({
-                icon: 'ti-gift',
-                message: "欢迎您回到 <b>医路相随－医生端</b>"
-
-            },{
-                type: 'success',
-                timer: 4000
-            });
-
+          
         });
     </script>
 

@@ -2,10 +2,20 @@ package model;
 
 public class Templet {
 	
+	private int tid;
+	
+	public int getTid() {
+		return tid;
+	}
+
+	public void setTid(int tid) {
+		this.tid = tid;
+	}
+
 	private String templet_name;
 	private String creator;         // username
-	private String suitable;        // ÊÊÓÃ²¡Ö¢
-	private String description;     // Ä£°åÃèÊö
+	private String suitable;        // é€‚ç”¨ç—‡Ö¢
+	private String description;     // æè¿°
 	
 	public String getTemplet_name() {
 		return templet_name;

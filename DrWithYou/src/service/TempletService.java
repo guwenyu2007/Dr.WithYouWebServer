@@ -5,8 +5,6 @@ package service;
 
 import java.util.ArrayList;
 
-import util.AppException;
-
 import model.Templet;
 
 import impl.TempletDaoImpl;
@@ -25,21 +23,107 @@ public class TempletService {
 	}
 	
 	/**
-	 * ��ȡҽ�����������м����
+	 * 获取该医生创建的所有模板
 	 * @param username
 	 * @return
 	 */
 	public ArrayList<Templet> getTempletList(String username){
 		
-		ArrayList<Templet> list = new ArrayList<Templet>();
-		
-		try {
-			list = templetDao.getTempletList(username);
-		} catch (AppException e) {
-			e.printStackTrace();
-		}
-		
+		ArrayList<Templet> list = templetDao.getTempletList(username);
+			
 		return list;
+	}
+	
+	/**
+	 * 删除模板
+	 * @param tid
+	 * @return
+	 */
+	public String deleteTemplet(int tid){
+		
+		String message = "";
+		
+		int result = templetDao.deleteTemplet(tid);
+		if(result != 0)
+			message = "删除成功！";
+		else
+			message = "删除失败！";
+		
+		return message;
+	}
+	
+	/**
+	 * 新建模板
+	 * @param username
+	 * @param templetname
+	 * @param suitable
+	 * @param description
+	 * @return
+	 */
+	public String addTemplet(String username, String templetname, String suitable, String description){
+		
+		String message = "";
+		
+		int result = templetDao.addTemplet(username, templetname, suitable, description);
+		if(result != 0)
+			message = "增加成功！";
+		else
+			message = "增加失败！";
+		
+		return message;
+	}
+	
+	/**
+	 * 获取模板详细信息
+	 * @param tid
+	 * @return
+	 */
+	public Templet getTemplet(int tid){
+		Templet templet = templetDao.getTemplet(tid);
+		return templet;
+	}
+	
+	/**
+	 * 修改模板
+	 * @param tid
+	 * @param templetname
+	 * @param suitable
+	 * @param description
+	 * @return
+	 */
+	public String saveTemplet(int tid, String templetname, String suitable, String description){
+		String message = "";
+		
+		int result = templetDao.saveTemplet(tid, templetname, suitable, description);
+		if(result != 0)
+			message = "修改成功！";
+		else
+			message = "修改失败！";
+		
+		return message;
+	}
+	
+	/***
+	 * 删除所有模板和检查项关系
+	 * @param tid
+	 * @return
+	 */
+	public int deleteTempletCheck(int tid){
+		
+		int id = templetDao.deleteTempletCheck(tid);
+		
+		return id;
+	}
+	
+	/**
+	 * 添加模板和检查项关系
+	 * @param tid
+	 * @param cid
+	 * @return
+	 */
+	public int addTempletCheck(int tid, int cid){
+		int id = templetDao.addTempletCheck(tid, cid);
+		return id;
 	}
 
 }

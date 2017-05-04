@@ -1,29 +1,25 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Checklist;
 import service.ChecklistService;
-import service.UserService;
 
 /**
- * Servlet implementation class ChecklistServlet
+ * Servlet implementation class SaveChecklistServlet
  */
-@WebServlet("/checklist")
-public class ChecklistServlet extends HttpServlet {
+@WebServlet("/saveChecklist")
+public class SaveChecklistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChecklistServlet() {
+    public SaveChecklistServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,24 +29,23 @@ public class ChecklistServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int id = Integer.parseInt(request.getParameter("id"));
+		String itemname = request.getParameter("itemname");
+		String checktime = request.getParameter("checktime");
+		String description = request.getParameter("description");
+		System.out.println("save " + id + "\t" + itemname + "\t" + checktime + "\t" + description);
 		
 		// 获取token
 		String token = (String)request.getSession().getAttribute("token");
 		if(token == "" || token == null)
 			request.getRequestDispatcher("/login").forward(request, response);
 		
-		// token -> username
-		String username = new UserService().getUsername(token);
-		if(username == "" || username == null)
-			request.getRequestDispatcher("/login").forward(request, response);
+		// 设置编码
+		response.setCharacterEncoding("UTF-8");
 		
-		// 获取检查项列表
-		ChecklistService service = new ChecklistService();
-		ArrayList<Checklist> list = service.getCheckList(username);
-		
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("/checkpointList.jsp").forward(request, response);
-		
+		String message = new ChecklistService().saveChecklist(id, itemname, checktime, description);
+		response.getWriter().write(message);
 	}
 
 	/**
@@ -58,6 +53,7 @@ public class ChecklistServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
