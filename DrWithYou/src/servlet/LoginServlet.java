@@ -47,6 +47,7 @@ public class LoginServlet extends HttpServlet {
 		// 获取用户信息
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
+		System.out.println("login\t" + name + "\t" + password);
 		String token = Token.getToken();
 		
 		// 
@@ -54,15 +55,20 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(name + "   " + password);
 		int id = service.login(name, password, token);
 		
+		String message = "";
 		// 处理
 		if(id == 1){
-			// session��¼�û�token
+			// session保存token
 			HttpSession session = request.getSession();
 			session.setAttribute("token", token);
 			
 			// 重定向
-			response.sendRedirect("UserManage");
+			message = "登录成功！";
 		}
+		message = "登录失败！";
+		
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(message);
 		
 	}
 
