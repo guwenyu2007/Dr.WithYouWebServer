@@ -1,4 +1,4 @@
-package com.gp800;
+package androidServlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import net.sf.json.JSONObject;
+
+
+import service.UserService;
+
 /**
- * Servlet implementation class testServlet
+ * Servlet implementation class AdRegisterServlet
  */
-@WebServlet("/testServlet")
-public class testServlet extends HttpServlet {
+@WebServlet("/adRegister")
+public class AdRegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public testServlet() {
+    public AdRegisterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,16 +32,27 @@ public class testServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		  doGet(request, response);
+		
+		// 获取用户名密码
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		// 
+		UserService service = new UserService();
+		String message = service.register(username, password);
+		
+		// 返回提示
+		JSONObject json=new JSONObject();
+		json.put("message", message);
+		response.getWriter().write(json.toString());
+
 	}
 
 }
