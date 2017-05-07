@@ -109,4 +109,37 @@ public class ChecklistService {
 		return message;
 		
 	}
+	
+	/**
+	 * 获取病人所有检查项id
+	 * @param username
+	 * @return
+	 */
+	public ArrayList<Integer> getPatientChecklist(String username){
+		
+		ArrayList<Integer> list = checklistDao.getPatientChecklist(username);
+		return list;
+	}
+	
+	/**
+	 * 删除病人对应所有检查项id
+	 * @param username
+	 * @return
+	 */
+	public int deletePatientChecklist(String username){
+		int id = checklistDao.deletePatientChecklist(username);
+		return id;
+	}
+	
+	
+	/**
+	 * 添加病人和检查项的联系
+	 * @param username
+	 * @param cid
+	 * @return
+	 */
+	public int addPatientChecklist(String username, int cid){
+		int result = checklistDao.addPatientChecklist(username, cid);
+		return result;
+	}
 }

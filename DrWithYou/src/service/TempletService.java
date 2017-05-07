@@ -137,7 +137,6 @@ public class TempletService {
 		ArrayList<Integer> list = templetDao.getTempletCheck(tid);
 		return list;
 	}
-
 	
 	/**
 	 * 获取用户对应的模板id

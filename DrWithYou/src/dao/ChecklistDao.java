@@ -20,4 +20,13 @@ public interface ChecklistDao {
 	
 	// 删除检查项
 	public int deleteCheckitem(int cid);
+	
+	// 获取病人对应的检查项id
+	public ArrayList<Integer> getPatientChecklist(String username);
+	
+	// 删除病人对应的所有检查项
+	public int deletePatientChecklist(String username);
+	
+	// 添加病人和检查项的联系
+	public int addPatientChecklist(String username, int cid);
 }

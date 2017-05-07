@@ -173,7 +173,7 @@
                                                    <option value=<%= t.getTid()%> <% if(map.get(p.getUsername()).equals(t.getTemplet_name())){ %> selected="selected" <% } %>><%= t.getTemplet_name() %></option>
                                                    <% }} %>
                                                 </select></td>
-                                           <td><a href="xihuajianchaxiang.html"><button  type='button'>细化检查项</button></a></td>
+                                           <td><a href="patientChecklistDetail?username=<%= p.getUsername()%>"><button  type='button'>细化检查项</button></a></td>
                                         </tr>
                                         
                                       <%}} %>

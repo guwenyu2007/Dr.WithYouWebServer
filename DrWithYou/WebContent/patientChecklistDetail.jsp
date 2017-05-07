@@ -1,4 +1,6 @@
-<!doctype html>
+﻿<!doctype html>
+<%@page import="java.util.*"%>
+<%@page import="model.Checklist"%>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -28,6 +30,29 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/themify-icons.css" rel="stylesheet">
+    
+     <script type="text/javascript">
+		function edit(patientName){	
+			
+			var id_array = new Array();  
+			$('input:checkbox').each(function(){  
+				if ($(this).attr('checked') == 'checked'){
+					 id_array.push($(this).attr('id'));//向数组中添加元素  
+				}   
+			});  
+			
+		    $.ajax({
+                 type: "get",
+                 url: "savePatientChecklist",
+                 data: {username: patientName,
+                	    array: JSON.stringify(id_array)},//提交表单，相当于CheckCorpID.ashx?ID=XXX
+                 contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+                 success: function(msg){
+                	    alert(msg); window.location.href = "patientCheckpoint"}
+                }); 
+		}
+	
+	</script>
 
 </head>
 <body>
@@ -148,47 +173,30 @@
                                         <th>描述</th>   
                                     </thead>
                                     <tbody>
+                                    
+                                    <% String patientName = (String)request.getAttribute("patientName"); %>
+                                    <% ArrayList<Checklist> list = (ArrayList<Checklist>)request.getAttribute("list"); %>
+                                    <% ArrayList<Integer> patientCheckList = (ArrayList<Integer>)request.getAttribute("patientCheckList"); %>
+                                    <%
+                                    	if(list != null){
+	                                    	Iterator<Checklist> iter = list.iterator(); 
+											while(iter.hasNext()) { 									
+												Checklist c = (Checklist)iter.next();
+								    %>
+                                    
                                         <tr>
-                                            <td>
-                                               <input type="checkbox" />
-                                            </td>
-                                            <td >血糖</td>
-                                            <td>晨起空腹</td>
-                                            <td>
-                                               适用于吧吧吧吧啊吧 </br>
-                                              不适用于吧吧吧吧吧啊吧</br>
-                                              注意吧吧吧吧
-                                               </td>
-                                           
-                                        <tr>
-                                            <td>
-                                               <input type="checkbox" />
-                                            </td>
-                                            <td>血压</td>
-                                            <td>晚饭后</td>
-                                           <td>
-                                               适用于吧吧吧吧啊吧 </br>
-                                              不适用于吧吧吧吧吧啊吧</br>
-                                              注意吧吧吧吧
-                                               </td>
-                                   
+                                            <td><input type="checkbox" id=<%= c.getCid() %> <% if(patientCheckList.contains(c.getCid())){ %> checked="checked" <% } %>/></td>
+                                            <td><%= c.getChecklist_name() %></td>
+                                            <td><%= c.getChecktime() %></td>
+                                            <td><%= c.getDescription() %></td>
                                         </tr>
-                                        
-                                        <tr>
-                                            <td>
-                                               <input type="checkbox" />
-                                            </td>
-                                            <td>尿糖</td>
-                                            <td>晚饭后</td>
-                                           <td>
-                                               适用于吧吧吧吧啊吧 </br>
-                                              不适用于吧吧吧吧吧啊吧</br>
-                                              注意吧吧吧吧
-                                               </td>
-                                          
-                                        </tr>            
+                                    <% }} %>
                                     </tbody>
                                 </table>
+                            </div>
+                            
+                            <div class="text-center">
+                            <input type="button" class="btn btn-info btn-fill btn-wd" value="确认修改" onclick="edit('<%= patientName %>')">
                             </div>
                         </div>
                     </div>
@@ -208,9 +216,6 @@
 
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
-
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
     <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 	<script src="assets/js/paper-dashboard.js"></script>

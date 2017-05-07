@@ -345,7 +345,6 @@ public class TempletDaoImpl implements TempletDao{
 		
 		return list;	
 	}
-
 	
 	/**
 	 * 获取病人对应模板id

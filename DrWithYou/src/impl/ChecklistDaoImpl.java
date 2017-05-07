@@ -229,5 +229,125 @@ public class ChecklistDaoImpl implements ChecklistDao{
         return id;
 
 	}
+	
+	/**
+	 * 获取病人对应的检查项id
+	 */
+	public ArrayList<Integer> getPatientChecklist(String username){
+		
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		
+		Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        
+        try {
+            // 创建数据库连接
+            conn = DBUtil.getConnection();
 
+            // 定义及预处理sql语句
+            String str = "SELECT * FROM usercheckitem WHERE username = '" + username + "'";
+            st = conn.prepareStatement(str);
+
+            // 设置参数
+//            st.setString(1, username);
+
+            // 执行sql语句
+            rs = st.executeQuery(str);
+            while(rs.next()){
+            	list.add(rs.getInt("id"));
+            	System.out.println("patient checkitem\t" + username + "\t" + rs.getInt("id"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally
+        {
+            // 关闭连接
+            DBUtil.closeResultSet(rs);     // 关闭数据集
+            DBUtil.closeStatement(st);     //     sql语句
+            DBUtil.closeConection(conn);   //     连接
+        }
+
+		return list;
+	}
+	
+	/**
+	 * 删除病人对应的所有检查项
+	 */
+	public int deletePatientChecklist(String username){
+		
+		int id = 0;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            // 创建数据库连接
+            conn = DBUtil.getConnection();
+
+            // 设置sql语句
+            String str = "DELETE FROM usercheckitem WHERE username = '" + username + "'";
+            st = conn.prepareStatement(str);
+
+            // 设置参数
+//            st.setInt(1, cid);
+
+            // 执行sql语句
+            // id = 0  update失败
+            id = st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally
+        {
+            // 关闭数据库连接
+            DBUtil.closeResultSet(rs);   
+            DBUtil.closeStatement(st);    
+            DBUtil.closeConection(conn);   
+        }
+        
+        return id;		
+	}
+
+	/**
+	 * 添加病人和检查项的联系
+	 */
+	public int addPatientChecklist(String username, int cid){
+		
+		int result = -1;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            // 创建数据库连接
+            conn = DBUtil.getConnection();
+
+            // 设置sql语句
+            String str = "INSERT INTO usercheckitem VALUES(?, ?)";
+            st = conn.prepareStatement(str);
+
+            // 设置参数
+            st.setString(1, username);
+            st.setInt(2, cid);
+
+            // 执行sql
+            result = st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally
+        {
+            // 关闭数据库连接
+            DBUtil.closeResultSet(rs);   
+            DBUtil.closeStatement(st);     
+            DBUtil.closeConection(conn);   
+        }
+        
+        return result;
+		
+	}
 }
