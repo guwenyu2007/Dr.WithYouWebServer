@@ -4,7 +4,9 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import model.Patient;
 import model.Templet;
 
 import impl.TempletDaoImpl;
@@ -134,6 +136,30 @@ public class TempletService {
 	public ArrayList<Integer> getTempletCheck(int tid){
 		ArrayList<Integer> list = templetDao.getTempletCheck(tid);
 		return list;
+	}
+
+	
+	/**
+	 * 获取用户对应的模板id
+	 * @param list
+	 * @return
+	 */
+	public HashMap<String, String> getUserTemplet(ArrayList<Patient> list){
+		
+		HashMap<String , String> map = new HashMap<String , String>(); 
+		
+		for(Patient patient: list){
+			String username = patient.getUsername();
+			int tid = templetDao.getPatientTemplet(username);
+			Templet templet = templetDao.getTemplet(tid);
+			
+			if(tid == -1)
+				map.put(username, "null");
+			else
+				map.put(username, templet.getTemplet_name());
+		}
+		
+		return map;
 	}
 
 }

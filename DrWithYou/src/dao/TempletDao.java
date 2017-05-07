@@ -29,5 +29,8 @@ public interface TempletDao {
 	
 	// 获取所有模板对应的检查项id
 	public ArrayList<Integer> getTempletCheck(int tid);
+	
+	// 获取所有病人对应模板id
+	public int getPatientTemplet(String patientName);
 
 }

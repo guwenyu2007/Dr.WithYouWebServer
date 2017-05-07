@@ -345,4 +345,46 @@ public class TempletDaoImpl implements TempletDao{
 		
 		return list;	
 	}
+
+	
+	/**
+	 * 获取病人对应模板id
+	 */
+	public int getPatientTemplet(String patientName){
+				
+		int tid = -1;
+		Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        
+        try {
+            // 创建数据库连接
+            conn = DBUtil.getConnection();
+
+            // 定义及预处理sql语句
+            String str = "SELECT * FROM usertemplet WHERE username = '" + patientName + "'";
+            st = conn.prepareStatement(str);
+
+            // 设置参数
+//            st.setString(1, patientName);
+
+            // 执行sql语句
+            rs = st.executeQuery(str);
+            while(rs.next()){
+            	tid = rs.getInt("tid");
+            	System.out.println("get patient templet\t" + patientName + "\t" + tid);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally
+        {
+            // 关闭连接
+            DBUtil.closeResultSet(rs);     // 关闭数据集
+            DBUtil.closeStatement(st);     //     sql语句
+            DBUtil.closeConection(conn);   //     连接
+        }
+
+		return tid;
+	}
 }
