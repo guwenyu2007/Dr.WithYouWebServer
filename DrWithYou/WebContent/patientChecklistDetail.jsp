@@ -35,11 +35,14 @@
 		function edit(patientName){	
 			
 			var id_array = new Array();  
-			$('input:checkbox').each(function(){  
-				if ($(this).attr('checked') == 'checked'){
+			$("input[type='checkbox']").each(function(){  
+				
+				if ($(this).prop('checked')== true){
 					 id_array.push($(this).attr('id'));//向数组中添加元素  
 				}   
 			});  
+			
+			//alert(id_array);
 			
 		    $.ajax({
                  type: "get",
@@ -75,32 +78,30 @@
             <ul class="nav">
                
                <li>
-                    <a href="bingren.html">
+                    <a href="UserManage">
                         <i class="ti-user"></i>
                         <p>病人管理</p>
                     </a>
                 </li>
-                 <li class="active">
+                 <li class="patientCheckpoint">
                     <a href="bingqing.html">
                         <i class="ti-view-list-alt"></i>
                         <p>病情管理</p>
                     </a>
                 </li>
                 <li >
-                    <a href="moban.html">
+                    <a href="templet">
                         <i class="ti-panel"></i>
                         <p>模版管理</p>
                     </a>
                 </li>
                   <li >
-                    <a href="jianchaxiang.html">
+                    <a href="checklist">
                         <i class="ti-pencil-alt2"></i>
                         <p>检查项设置</p>
                     </a>
                 </li>
-               
-             
-				
+	
         
     	</div>
     </div>
@@ -141,7 +142,7 @@
                               </ul>
                         </li>
                          <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="logout" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="ti-panel"></i>
                                 <p>退出</p>
                             </a>

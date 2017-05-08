@@ -68,13 +68,13 @@
             <ul class="nav">
                
                <li>
-                    <a href="UseerManage">
+                    <a href="UserManage">
                         <i class="ti-user"></i>
                         <p>病人管理</p>
                     </a>
                 </li>
                  <li >
-                    <a href="bingqing.html">
+                    <a href="patientCheckpoint">
                         <i class="ti-view-list-alt"></i>
                         <p>病情管理</p>
                     </a>
@@ -92,14 +92,6 @@
                     </a>
                 </li>
                
-                <li>
-                    <a href="notifications.html">
-                        <i class="ti-bell"></i>
-                        <p>我的消息</p>
-                    </a>
-                </li>
-				
-        
     	</div>
     </div>
 
@@ -213,9 +205,6 @@
 
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
-
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
     <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 	<script src="assets/js/paper-dashboard.js"></script>

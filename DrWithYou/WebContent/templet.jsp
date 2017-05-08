@@ -78,7 +78,7 @@
                     </a>
                 </li>
                  <li >
-                    <a href="bingqing.html">
+                    <a href="patientCheckpoint">
                         <i class="ti-view-list-alt"></i>
                         <p>病情管理</p>
                     </a>
@@ -95,15 +95,7 @@
                         <p>检查项设置</p>
                     </a>
                 </li>
-               
-                <li>
-                    <a href="notifications.html">
-                        <i class="ti-bell"></i>
-                        <p>我的消息</p>
-                    </a>
-                </li>
-				
-        
+             
     	</div>
     </div>
 
@@ -143,7 +135,7 @@
                               </ul>
                         </li>
                          <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="logout" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="ti-panel"></i>
                                 <p>退出</p>
                             </a>
@@ -217,9 +209,6 @@
 
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
-
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
     <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 	<script src="assets/js/paper-dashboard.js"></script>

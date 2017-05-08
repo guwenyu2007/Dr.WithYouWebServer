@@ -53,25 +53,25 @@
             <ul class="nav">
                 
                 <li>
-                    <a href="bingren.html">
+                    <a href="UserManage">
                         <i class="ti-user"></i>
                         <p>病人管理</p>
                     </a>
                 </li>
-                 <li class="active">
+                 <li class="patientCheckpoint">
                     <a href="bingqing.html">
                         <i class="ti-view-list-alt"></i>
                         <p>病情管理</p>
                     </a>
                 </li>
                 <li>
-                    <a href="moban.html">
+                    <a href="templet">
                         <i class="ti-panel"></i>
                         <p>模版管理</p>
                     </a>
                 </li>
                   <li>
-                    <a href="jianchaxiang.html">
+                    <a href="checklist">
                         <i class="ti-pencil-alt2"></i>
                         <p>检查项设置</p>
                     </a>
@@ -118,7 +118,7 @@
                               </ul>
                         </li>
                          <li>
-                            <a href="login.html" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="logout" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="ti-panel"></i>
                                 <p>退出</p>
                             </a>
@@ -201,9 +201,6 @@
 
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
-
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
     <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 	<script src="assets/js/paper-dashboard.js"></script>

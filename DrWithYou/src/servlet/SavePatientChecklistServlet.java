@@ -41,10 +41,11 @@ public class SavePatientChecklistServlet extends HttpServlet {
 		// 删除病人的所有检查项
 		ChecklistService service = new ChecklistService();
 		int deleresult = service.deletePatientChecklist(patientName);
-		if(deleresult == 0){
-			message = "修改失败！";
-			response.getWriter().write(message);
-		}
+//		if(deleresult == 0){
+//			message = "修改失败！";
+//			response.getWriter().write(message);
+//			return;
+//		}
 		
 		// 保存病人和检查项关系
 		JSONArray data = JSONArray.fromObject(array);

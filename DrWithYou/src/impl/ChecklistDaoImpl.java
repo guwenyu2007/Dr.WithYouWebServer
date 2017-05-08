@@ -289,6 +289,7 @@ public class ChecklistDaoImpl implements ChecklistDao{
 
             // 设置sql语句
             String str = "DELETE FROM usercheckitem WHERE username = '" + username + "'";
+    		System.out.println("delete patient checkpoint\t" + username);
             st = conn.prepareStatement(str);
 
             // 设置参数
