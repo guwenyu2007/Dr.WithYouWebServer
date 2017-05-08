@@ -32,5 +32,8 @@ public interface TempletDao {
 	
 	// 获取所有病人对应模板id
 	public int getPatientTemplet(String patientName);
+	
+	// 删除所有该模板和病人对应关系
+	public int deletePatientTemplet(int tid);
 
 }

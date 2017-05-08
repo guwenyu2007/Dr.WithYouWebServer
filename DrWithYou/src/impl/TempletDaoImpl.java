@@ -386,4 +386,43 @@ public class TempletDaoImpl implements TempletDao{
 
 		return tid;
 	}
+	
+	/**
+	 * 删除该模板和所有病人的对应关系
+	 */
+	public int deletePatientTemplet(int tid){
+		
+		int id = 0;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            // 创建数据库连接
+            conn = DBUtil.getConnection();
+
+            // 设置sql语句
+            String str = "DELETE FROM usertemplet WHERE tid = ?";
+            st = conn.prepareStatement(str);
+
+            // 设置参数
+            st.setInt(1, tid);
+
+            // 执行sql语句
+            // id = 0  update失败
+            id = st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally
+        {
+            // 关闭数据库连接
+            DBUtil.closeResultSet(rs);   
+            DBUtil.closeStatement(st);    
+            DBUtil.closeConection(conn);   
+        }
+        return id;
+		
+	}
 }

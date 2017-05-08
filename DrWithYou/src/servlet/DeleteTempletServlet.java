@@ -36,8 +36,15 @@ public class DeleteTempletServlet extends HttpServlet {
 		System.out.println("delete tid = " + tid);
 		
 		response.setCharacterEncoding("UTF-8");
-		
-		String message = new TempletService().deleteTemplet(tid);
+	
+		// 删除模板
+		// 1. 删除templet中模板
+		// 2. 删除user和templet对应
+		// 3. 删除templet和checkpoint对应
+		TempletService service = new TempletService();
+		service.deletePatientTemplet(tid);             // 删除所有该模板和病人关系
+		service.deleteTempletCheck(tid);
+		String message = service.deleteTemplet(tid);   // 删除模板
 		response.getWriter().write(message);
 	}
 

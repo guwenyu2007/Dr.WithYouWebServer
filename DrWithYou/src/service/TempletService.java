@@ -160,5 +160,17 @@ public class TempletService {
 		
 		return map;
 	}
+	
+	/**
+	 * 删除所有该模板和病人关系
+	 * @param tid
+	 * @return
+	 */
+	public int deletePatientTemplet(int tid){
+		
+		int id = templetDao.deletePatientTemplet(tid);
+		
+		return id;
+	}
 
 }
