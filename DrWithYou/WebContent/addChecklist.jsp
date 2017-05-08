@@ -131,7 +131,10 @@
                               </ul>
                         </li>
                          <li>
-                            <a href="logout" class="dropdown-toggle" data-toggle="dropdown"><i class="ti-panel"></i>退出 </a>
+                             <a href="logout" >
+                                <i class="ti-panel"></i>
+                                <p>退出</p>
+                            </a>
                         </li>
 						
                     </ul>

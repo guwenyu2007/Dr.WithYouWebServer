@@ -61,7 +61,7 @@
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a  class="simple-text">
-                    医路相随
+                    	医路相随
                 </a>
             </div>
 
@@ -131,7 +131,7 @@
                               </ul>
                         </li>
                          <li>
-                            <a href="logout" class="dropdown-toggle" data-toggle="dropdown">
+                             <a href="logout" >
                                 <i class="ti-panel"></i>
                                 <p>退出</p>
                             </a>

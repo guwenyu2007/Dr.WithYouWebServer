@@ -118,7 +118,7 @@
                               </ul>
                         </li>
                          <li>
-                            <a href="logout" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="logout" >
                                 <i class="ti-panel"></i>
                                 <p>退出</p>
                             </a>
@@ -174,6 +174,7 @@
                                                    <% }} %>
                                                 </select></td>
                                            <td><a href="patientChecklistDetail?username=<%= p.getUsername()%>"><button  type='button'>细化检查项</button></a></td>
+                                           <td><input type="button" aria-hidden="true" class="close" value="√" onclick="updateItem()"></td>
                                         </tr>
                                         
                                       <%}} %>
