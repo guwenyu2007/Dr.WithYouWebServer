@@ -65,8 +65,10 @@ public class LoginServlet extends HttpServlet {
 			// 重定向
 			message = "登录成功！";
 		}
-		message = "登录失败！";
+		else
+			message = "登录失败！";
 		
+		System.out.println("login message = " + message);
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(message);
 		

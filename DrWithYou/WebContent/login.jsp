@@ -27,7 +27,7 @@
              	        password: $("#password").val()},//提交表单，相当于CheckCorpID.ashx?ID=XXX
                  contentType: "application/x-www-form-urlencoded; charset=utf-8", 
                  success: function(msg){
-                	 if(msg == "登录失败")
+                	 if(msg == "登录失败！")
                 		 alert(msg); 
                 	 else
                 		 window.location.href = "UserManage";}
