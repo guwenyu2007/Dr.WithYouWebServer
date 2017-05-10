@@ -155,5 +155,45 @@ public class PatientDaoImpl implements PatientDao{
 		return list;
 	}
 	
+	/**
+	 * 删除医生和病人的关系对应
+	 */
+	public int deleteDocPatient(String doctorusr, String patientusr){
+		
+		int result = 0;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            // 创建数据库连接
+            conn = DBUtil.getConnection();
+
+            // 设置sql语句
+            String str = "DELETE FROM doctorpatient WHERE doctorusr = ? AND patientusr = ?";
+            st = conn.prepareStatement(str);
+
+            // 设置参数
+            st.setString(1, doctorusr);
+            st.setString(2, patientusr);
+
+            // 执行sql语句
+            // id = 0  update失败
+            result = st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally
+        {
+            // 关闭数据库连接
+            DBUtil.closeResultSet(rs);   
+            DBUtil.closeStatement(st);    
+            DBUtil.closeConection(conn);   
+        }
+        
+        return result;		
+	}
+	
 
 }

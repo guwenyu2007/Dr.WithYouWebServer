@@ -172,5 +172,27 @@ public class TempletService {
 		
 		return id;
 	}
+	
+	/**
+	 * 修改病人和模板的对应关系
+	 * @param patientusr
+	 * @param tid
+	 * @return
+	 */
+	public String editPatientTemplet(String patientusr, int tid){
+		
+		String message = "";
+		
+		// 删除病人和之前的模板对应关系
+		templetDao.deletePatientTemplet(patientusr);
+		int result = templetDao.addPatientTemplet(patientusr, tid);
+		System.out.println("add patient templet\t" + patientusr + "\t" + tid + "\t" + result);
+		if(result == 1)
+			message = "修改成功！";
+		else
+			message = "修改失败！";
+		
+		return message;
+	}
 
 }

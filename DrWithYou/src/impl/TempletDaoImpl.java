@@ -423,6 +423,83 @@ public class TempletDaoImpl implements TempletDao{
             DBUtil.closeConection(conn);   
         }
         return id;
+	}
+	
+	/**
+	 * 删除该病人和该模板的对应关系
+	 */
+	public int deletePatientTemplet(String username){
 		
+		int id = 0;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            // 创建数据库连接
+            conn = DBUtil.getConnection();
+
+            // 设置sql语句
+            String str = "DELETE FROM usertemplet WHERE username = ?";
+            st = conn.prepareStatement(str);
+            System.out.println("detele usertemplet username = " + username);
+
+            // 设置参数
+            st.setString(1, username);
+
+            // 执行sql语句
+            // id = 0  update失败
+            id = st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally
+        {
+            // 关闭数据库连接
+            DBUtil.closeResultSet(rs);   
+            DBUtil.closeStatement(st);    
+            DBUtil.closeConection(conn);   
+        }
+        return id;
+	}
+		
+	/**
+	 * 添加该病人和模板的对应关系
+	 */
+	public int addPatientTemplet(String username, int tid){
+		
+		int result = -1;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            // 创建数据库连接
+            conn = DBUtil.getConnection();
+
+            // 设置sql语句
+            String str = "INSERT INTO usertemplet VALUES(?, ?)";
+            st = conn.prepareStatement(str);
+
+            // 设置参数
+            st.setString(1, username);
+            st.setInt(2, tid);
+
+            // 执行sql
+            result = st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally
+        {
+            // 关闭数据库连接
+            DBUtil.closeResultSet(rs);   
+            DBUtil.closeStatement(st);     
+            DBUtil.closeConection(conn);   
+        }
+        
+        return result;		
 	}
 }

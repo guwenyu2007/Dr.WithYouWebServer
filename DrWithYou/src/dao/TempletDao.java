@@ -35,5 +35,11 @@ public interface TempletDao {
 	
 	// 删除所有该模板和病人对应关系
 	public int deletePatientTemplet(int tid);
+	
+	// 删除该病人和模板的对应关系
+	public int deletePatientTemplet(String username);
+	
+	// 添加该病人和模板的对应关系
+	public int addPatientTemplet(String username, int tid);
 
 }

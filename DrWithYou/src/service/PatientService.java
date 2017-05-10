@@ -72,6 +72,24 @@ public class PatientService {
 		return list;
 	}
 	
+	/**
+	 * 删除医生和患者的对应
+	 * @param doctorusr
+	 * @param patientusr
+	 * @return
+	 */
+	public String deleteDoctorPatient(String doctorusr, String patientusr){
+		String message = "";
+		
+		int result = patientDao.deleteDocPatient(doctorusr, patientusr);
+		if(result == 1)
+			message = "删除成功！";
+		else
+			message = "删除失败！";
+		
+		return message;
+	}
+	
 	
 
 }

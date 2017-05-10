@@ -31,6 +31,26 @@
 	<link href="css/font-awesome.min.css" rel="stylesheet">
     <link href='css/css.css' rel='stylesheet' type='text/css'>
     <link href="assets/css/themify-icons.css" rel="stylesheet">
+    
+    <script type="text/javascript">
+		function edit(patientusr){	
+			
+			//alert($('#select_k1 option:selected').text());
+			alert($('#' + patientusr + ' option:selected').val());
+			
+			$.ajax({
+                type: "post",
+                url: "editPatientTemplet",
+                data: {patientusr: patientusr,
+                	  tid : $('#' + patientusr + ' option:selected').val()},//提交表单，相当于CheckCorpID.ashx?ID=XXX
+                contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+                success: function(msg){
+               	    alert(msg); window.location.href = "patientCheckpoint"}
+               }); 
+		    
+		}
+	
+	</script>
 
 </head>
 <body>
@@ -161,7 +181,7 @@
                                         	<td><%= p.getPatient_name()%></td>
                                         	<td><%= p.getIdCard()%></td>
                                         	<td>
-                                                <select name="select" id="select_k1" class="xla_k">
+                                                <select name="select" id="<%= p.getUsername()%>" class="xla_k">
                                                 
                                                    <option value="选择品牌" <% if(map.get(p.getUsername()).equals("null")) { %> selected="selected" <% } %>>选择病情</option>
                                                    
@@ -174,7 +194,7 @@
                                                    <% }} %>
                                                 </select></td>
                                            <td><a href="patientChecklistDetail?username=<%= p.getUsername()%>"><button  type='button'>细化检查项</button></a></td>
-                                           <td><input type="button" aria-hidden="true" class="close" value="√" onclick="updateItem()"></td>
+                                           <td><input type="button" aria-hidden="true" class="close" value="√" onclick="edit('<%= p.getUsername() %>')"></td>
                                         </tr>
                                         
                                       <%}} %>

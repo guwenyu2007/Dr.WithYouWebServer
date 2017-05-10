@@ -14,4 +14,7 @@ public interface PatientDao {
 
 	// 获取该医生的所有病人
 	public ArrayList<Patient> getDocPatients(String username);
+	
+	// 删除医生和病人的关系对应
+	public int deleteDocPatient(String doctorusr, String patientusr);
 }

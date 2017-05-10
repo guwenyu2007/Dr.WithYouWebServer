@@ -31,17 +31,21 @@
     <link href='css/css.css' rel='stylesheet' type='text/css'>
     <link href="assets/css/themify-icons.css" rel="stylesheet">
 
-    <script>
-	function varify()
-	{
-		if(session.getAttribute("token")==null){
-			{
-				alert("您未登陆，请先登陆！");
-				 request.getRequestDispatcher("login").forward(request, response);
-		    }
+    <script type="text/javascript">
+		function deletePatient(username){
+            alert(username);
+			
+		    $.ajax({
+                 type: "get",
+                 url: "deleteDoctorPatient",
+                 data: {patientusr: username},//提交表单，相当于CheckCorpID.ashx?ID=XXX
+                 contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+                 success: function(msg){
+                	    alert(msg); window.location.href = "UserManage"}
+                }); 
 		}
-	}
- 	</script>
+	
+	</script>
 </head>
 <body>
 
@@ -165,7 +169,7 @@
 												Patient p = (Patient)iter.next();
 								%>
                                             <li>
-                                                 <button type="button" aria-hidden="true" class="close">×</button>
+                                                 <input type="button" aria-hidden="true" class="close" value="x" onclick="deletePatient('<%= p.getUsername()%>')">
 
                                                 <div class="row">
                                                     <div class="col-xs-3">  

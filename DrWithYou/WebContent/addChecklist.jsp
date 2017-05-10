@@ -30,14 +30,16 @@
     <link href="assets/css/themify-icons.css" rel="stylesheet">
 
 	<script type="text/javascript">
-		function submit(){		
+		function submit(){	
+			
+			//alert($("input[name=description]").val());
 			
 		    $.ajax({
                  type: "post",
                  url: "addChecklist",
                  data: {itemname: $("input[name=itemname]").val(),
                 	    checktime: $("input[name=checktime]").val(),
-                	    description: $("input[name=description]").val()},//提交表单，相当于CheckCorpID.ashx?ID=XXX
+                	    description: $("#description").val()},//提交表单，相当于CheckCorpID.ashx?ID=XXX
                  contentType: "application/x-www-form-urlencoded; charset=utf-8", 
                  success: function(msg){
                 	    alert(msg); window.location.href = "checklist"}

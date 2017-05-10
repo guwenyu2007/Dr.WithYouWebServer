@@ -37,8 +37,12 @@
 			
 			var id_array = new Array();  
 			$('input:checkbox').each(function(){  
-			    id_array.push($(this).attr('id'));//向数组中添加元素  
+				if ($(this).prop('checked')== true){
+					 id_array.push($(this).attr('id'));//向数组中添加元素  
+				}   
 			});  
+			
+			alert(id_array);
 			
 		    $.ajax({
                  type: "get",
