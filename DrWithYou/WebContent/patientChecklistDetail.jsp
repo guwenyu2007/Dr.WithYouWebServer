@@ -83,8 +83,8 @@
                         <p>病人管理</p>
                     </a>
                 </li>
-                 <li class="patientCheckpoint">
-                    <a href="bingqing.html">
+                 <li>
+                    <a href="patientCheckpoint">
                         <i class="ti-view-list-alt"></i>
                         <p>病情管理</p>
                     </a>

@@ -349,6 +349,87 @@ public class ChecklistDaoImpl implements ChecklistDao{
         }
         
         return result;
+	}
+	
+	/**
+	 * 删除病人和检查项的对应
+	 */
+	public int deletePatientChecklist(int cid){
+		
+		int id = 0;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            // 创建数据库连接
+            conn = DBUtil.getConnection();
+
+            // 设置sql语句
+            String str = "DELETE FROM usercheckitem WHERE id = '" + cid + "'";
+    		System.out.println("delete patient checkpoint\t" + cid);
+            st = conn.prepareStatement(str);
+
+            // 设置参数
+//            st.setInt(1, cid);
+
+            // 执行sql语句
+            // id = 0  update失败
+            id = st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally
+        {
+            // 关闭数据库连接
+            DBUtil.closeResultSet(rs);   
+            DBUtil.closeStatement(st);    
+            DBUtil.closeConection(conn);   
+        }
+        
+        return id;		
+		
+	}
+	
+	/**
+	 * 删除模板和检查项的对应
+	 */
+	public int deleteTempletChecklist(int cid){
+		
+		int id = 0;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+
+            // 创建数据库连接
+            conn = DBUtil.getConnection();
+
+            // 设置sql语句
+            String str = "DELETE FROM templetcheckitem WHERE cid = '" + cid + "'";
+    		System.out.println("delete templet checkpoint\t" + cid);
+            st = conn.prepareStatement(str);
+
+            // 设置参数
+//            st.setInt(1, cid);
+
+            // 执行sql语句
+            // id = 0  update失败
+            id = st.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally
+        {
+            // 关闭数据库连接
+            DBUtil.closeResultSet(rs);   
+            DBUtil.closeStatement(st);    
+            DBUtil.closeConection(conn);   
+        }
+        
+        return id;	
 		
 	}
 }

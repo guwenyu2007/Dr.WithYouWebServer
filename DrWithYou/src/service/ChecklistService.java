@@ -98,7 +98,15 @@ public class ChecklistService {
 	 */
 	public String deleteCheckitem(int cid){
 		
+		// 删除检查项
+		// 删除模板和检查项
+		// 删除病人和检查项
+		// 删除检查项
+		
 		String message = "";
+		
+		checklistDao.deletePatientChecklist(cid);
+		checklistDao.deleteTempletChecklist(cid);	
 		
 		int result = checklistDao.deleteCheckitem(cid);
 		if(result != 0)

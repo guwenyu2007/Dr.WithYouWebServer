@@ -2,9 +2,13 @@ package service;
 
 import java.util.ArrayList;
 
+import dao.ChecklistDao;
 import dao.PatientDao;
+import dao.TempletDao;
 import dao.UserDao;
+import impl.ChecklistDaoImpl;
 import impl.PatientDaoImpl;
+import impl.TempletDaoImpl;
 import impl.UserDaoImpl;
 import model.Patient;
 
@@ -12,10 +16,14 @@ public class PatientService {
 	
 	private PatientDao patientDao;
 	private UserDao userDao;
+	private ChecklistDao checklistDao;
+	private TempletDao templetDao;
 	
 	public PatientService(){
 		patientDao = new PatientDaoImpl();
 		userDao = new UserDaoImpl();
+		checklistDao = new ChecklistDaoImpl();
+		templetDao = new TempletDaoImpl();
 	}
 	
 	/**
@@ -80,6 +88,15 @@ public class PatientService {
 	 */
 	public String deleteDoctorPatient(String doctorusr, String patientusr){
 		String message = "";
+		
+
+		// 1. 删除病人对应检查项
+		// 2. 删除病人对应模板
+		// 3. 删除病人和患者对应
+		
+		
+		checklistDao.deletePatientChecklist(patientusr);
+		templetDao.deletePatientTemplet(patientusr);
 		
 		int result = patientDao.deleteDocPatient(doctorusr, patientusr);
 		if(result == 1)

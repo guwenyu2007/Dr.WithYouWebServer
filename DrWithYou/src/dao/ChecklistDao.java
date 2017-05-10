@@ -29,4 +29,11 @@ public interface ChecklistDao {
 	
 	// 添加病人和检查项的联系
 	public int addPatientChecklist(String username, int cid);
+	
+	// 删除病人和检查项的对应
+	public int deletePatientChecklist(int cid);
+	
+	// 删除模板和检查项的对应
+	public int deleteTempletChecklist(int cid);
+	
 }
