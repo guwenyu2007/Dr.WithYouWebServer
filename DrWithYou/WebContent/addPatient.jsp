@@ -34,7 +34,7 @@
    <script type="text/javascript">
 		function submit(patientusr){	
 			
-			alert("in");
+			//alert("in");
 			
 		    $.ajax({
                  type: "get",

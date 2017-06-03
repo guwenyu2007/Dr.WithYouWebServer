@@ -33,7 +33,7 @@
 
     <script type="text/javascript">
 		function deletePatient(username){
-            alert(username);
+            //alert(username);
 			
 		    $.ajax({
                  type: "get",
@@ -188,7 +188,7 @@
                                                    
                                                     <div class="col-xs-3 text-right"></br>
 
-                                                       <a href="aaaaaaaaaaaaa.html">
+                                                       <a href="message?pa=<%=p.getUsername()%>">
                                                         <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn></a>
                                                     </a>
                                                 </div>

@@ -42,7 +42,7 @@
 				}   
 			});  
 			
-			alert(id_array);
+			//alert(id_array);
 			
 		    $.ajax({
                  type: "get",

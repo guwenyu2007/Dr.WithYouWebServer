@@ -34,7 +34,7 @@
 
 	<script type="text/javascript">
 		function deleteItem(cid){
-            alert(cid);
+            //alert(cid);
 			
 		    $.ajax({
                  type: "get",

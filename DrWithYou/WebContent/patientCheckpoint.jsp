@@ -36,7 +36,7 @@
 		function edit(patientusr){	
 			
 			//alert($('#select_k1 option:selected').text());
-			alert($('#' + patientusr + ' option:selected').val());
+			//alert($('#' + patientusr + ' option:selected').val());
 			
 			$.ajax({
                 type: "post",

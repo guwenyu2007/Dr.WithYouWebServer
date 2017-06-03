@@ -1,6 +1,6 @@
 ﻿<!doctype html>
 <%@page import="java.util.*"%>
-<%@page import="model.Templet"%>
+<%@page import="model.Message"%>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -12,7 +12,6 @@
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-
 
     <!-- Bootstrap core CSS     -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -27,34 +26,33 @@
     <link href="assets/css/demo.css" rel="stylesheet" />
 
     <!--  Fonts and icons     -->
-	<link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href='css/css.css' rel='stylesheet' type='text/css'>
     <link href="assets/css/themify-icons.css" rel="stylesheet">
 
-	<script type="text/javascript">
-		function deleteItem(tid){
-            //alert(tid);
-			
+    <style type="text/css">*{ margin:0; padding:0; border:0; outline:0; font-family:"Microsoft YaHei";}body{ font-size:12px;}#box{ width:200px; height:200px; background:orange; position:absolute; left:0; top:0;} .f-cb{ zoom:1;}.f-cb:after,.f-cb:before{ clear:both; content:""; display:table; height:0; }ul{ list-style:none;}.m{ width:700px; padding:20px; border:1px solid  #ccc; margin:50px auto; overflow:hidden;}.m1 { position:relative; }.m1:after,.m1:before { clear:both; content:""; display:table; height:0; margin-bottom:20px;}.m1 dt a{ width:60px; height:60px; background:#CCC; display:inline-block; text-align:center; line-height:60px; }.m1 dd{ max-width:274px; border:1px solid #ccc; border-radius:3px; padding:10px ;  background:#ccc; box-sizing:border-box; position:relative;}.m1 dd:before{ position:absolute; bottom:5px;  content:""; border-width:10px; border-style:solid; }.m1.he dd:before,.m1.vhe dd:before{ left:-20px; border-color:transparent #ccc  transparent transparent;   }.m1.me dd:before,.m1.vme dd:before{ right:-20px; border-color:transparent  transparent transparent  #ccc; }.m1.he dt { float:left; }.m1.he dd{ margin-left:20px; margin-top:20px ;float:left; }.m1.me dt { float:right; margin-left:20px;}.m1.me dd { float:right; margin-top:20px;}.m1.he dt a{ float:left; }.m1.he dt span{ display:block; float:left;  margin-right:-200px; color:#666; margin-left:20px;}.m1.me dt a{ float:right; }.m1.me dt span{ display:block; float:right;  margin-left:-200px; color:#666; margin-right:20px;}.m1.vhe dt a{ position:absolute; bottom:0; }.m1.vhe dt span{ padding-left:80px; }.m1.vhe dd{ margin-left:80px; margin-top:5px;} .m1.vme dt a{ position:absolute; bottom:0; right:0;}.m1.vme dt span{ padding-right:80px; text-align:right; display:block; }.m1.vme dd{ margin-right:80px; margin-top:5px; float:right;}a:link,a:visited {color: black;text-decoration: none;}a:hover,a:active {text-decoration: underline;}.m02{ width:318px; border:1px solid #999; margin-left:20px;  }.m2 li{ clear:both; display:table; padding-left:20px;}.m2{ width:168px;  }.m2 li a{float:left; max-width:168px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }.m2 li span{ float:left; padding-left:10px; margin-right:-100px;}</style><script src="js/jquery-1.11.1.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+		function send(pausr){	
+					
 		    $.ajax({
-                 type: "get",
-                 url: "deleteTemplet",
-                 data: {id: tid},//提交表单，相当于CheckCorpID.ashx?ID=XXX
+                 type: "post",
+                 url: "sendMessage",
+                 data: {pausr: pausr,
+                	    message: $("#content").val()},//提交表单，相当于CheckCorpID.ashx?ID=XXX
                  contentType: "application/x-www-form-urlencoded; charset=utf-8", 
                  success: function(msg){
-                	    alert(msg); window.location.href = "templet"}
+                	    alert(msg); location.reload();}
                 }); 
 		}
 	
 	</script>
 
+
 </head>
 <body>
 
 <div class="wrapper">
-
-    <% String token=(String)session.getAttribute("token");
-       if(token == null){
-       request.getRequestDispatcher("login").forward(request, response);}%>
 	<div class="sidebar" data-background-color="white" data-active-color="danger">
 
     <!--
@@ -64,14 +62,13 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a  class="simple-text">
+                <a class="simple-text">
                     医路相随
                 </a>
             </div>
 
             <ul class="nav">
-               
-               <li>
+                <li class="active">
                     <a href="UserManage">
                         <i class="ti-user"></i>
                         <p>病人管理</p>
@@ -83,7 +80,7 @@
                         <p>病情管理</p>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="templet">
                         <i class="ti-panel"></i>
                         <p>模版管理</p>
@@ -95,7 +92,8 @@
                         <p>检查项设置</p>
                     </a>
                 </li>
-             
+            
+        
     	</div>
     </div>
 
@@ -135,7 +133,7 @@
                               </ul>
                         </li>
                          <li>
-                            <a href="logout" >
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="ti-panel"></i>
                                 <p>退出</p>
                             </a>
@@ -146,55 +144,35 @@
                 </div>
             </div>
         </nav>
+                      
 
+        <% ArrayList<Message> list =  (ArrayList<Message>)request.getAttribute("list"); %>
+        <% String docusr = (String)request.getAttribute("docusr"); %>
+        <% String pausr = (String)request.getAttribute("pausr"); %>
+        <div class="m">
+        
+        <%
+           	if(list != null){
+           		Iterator<Message> iter = list.iterator(); 
+           		while(iter.hasNext()) {
+           			Message message = iter.next();
+           		
+           	
+        %>          
+			 									
+							    
+               <%if(message.getSender().equals(docusr)) { %> <dl class="vme m1"> <% }else{ %><dl class="he m1"> <%} %>
+               	<dt><a><%= message.getSender()%></a>
+               	<span><%= message.getTime() %></span></dt>        
+                <dd><%= message.getMessage() %></dd>    
+               </dl>   
+               
+         <% }} %>	
+              
 
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">病情模版列表</h4> <br />
-                                 <div class="text-right">
-                                        <a href="addTemplet">
-                                        <button type="button" class="btn btn-info btn-fill btn-wd" >添加模板</button>
-                                       </a>
-                                    </div>
-                            </div>
-                            
-                            <div class="content table-responsive table-full-width">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <th>疾病分类</th>
-                                        <th>适用症</th>
-                                        <th>描述</th>   
-                                    </thead>
-                                    <tbody>
-                                    <% ArrayList<Templet> list = (ArrayList<Templet>)request.getAttribute("list"); %>
-                                    <%
-                                    	if(list != null){
-	                                    	Iterator<Templet> iter = list.iterator(); 
-											while(iter.hasNext()) { 									
-												Templet t = (Templet)iter.next();
-								    %>
-                                        <tr>
-
-                                            <td ><%= t.getTemplet_name() %></td>
-                                            <td><%= t.getSuitable() %></td>
-                                            <td><%= t.getDescription() %></td>                                         
-                                            <td>
-                                                <a href="editTemplet?id=<%= t.getTid()%>"><button  type='button'>编辑</button></a></td>
-                                            <td><input type="button" aria-hidden="true" class="close" value="×" onclick="deleteItem(<%= t.getTid()%>)"></td>
-                                        </tr>
-                                    <% }} %>
-                                                   
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-
+                <textarea rows="5" class="form-control border-input" id="content"></textarea>    
+                <input type="button" style = " float:right" value = "发送" onclick="send('<%= pausr%>')">    
+        </div> 
 </body>
 
     <!--   Core JS Files   -->
@@ -215,13 +193,6 @@
 
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
 
-           
-
-          
-        });
-    </script>
 
 </html>
