@@ -117,21 +117,6 @@
                                 <p>设置</p>
                             </a>
                         </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-bell"></i>
-                                    <p class="notification">4</p>
-									<p>消息</p>
-									<b class="caret"></b>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">消息 1</a></li>
-                                <li><a href="#">消息 2</a></li>
-                                <li><a href="#">消息 3</a></li>
-                                <li><a href="#">消息 4</a></li>
-                                <li><a href="#">全部消息</a></li>
-                              </ul>
-                        </li>
                          <li>
                             <a href="logout" >
                                 <i class="ti-panel"></i>
