@@ -156,7 +156,8 @@
               
 
                 <textarea rows="5" class="form-control border-input" id="content"></textarea>    
-                <input type="button" style = " float:right" value = "发送" onclick="send('<%= pausr%>')">    
+                <br>
+                <input type="button" style = " float:right" value = "发送" class="btn btn-info btn-fill btn-wd" onclick="send('<%= pausr%>')">    
         </div> 
 </body>
 

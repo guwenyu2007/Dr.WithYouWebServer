@@ -60,9 +60,6 @@ public class TimeUtil {
 		 return date;
 	 }
 	 
-	 
-	 
-	 
 	 public static void main(String[] args)
 	 {
 //		 Timestamp ts = new Timestamp(System.currentTimeMillis()); 
@@ -87,6 +84,11 @@ public class TimeUtil {
 		  System.out.println(stampstr);
 
 		  System.out.println(stampToDate(stampstr));
+		  
+		  String s1 = "2016-04-03 10:24:15";
+		  String s2 = "2016-04-10 10:24:15";
+		  System.out.println(dateToStamp(s1));
+		  System.out.println(dateToStamp(s2));
 	 }
 	 
 }

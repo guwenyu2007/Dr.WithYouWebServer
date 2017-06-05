@@ -158,14 +158,14 @@
 
                                                 <div class="row">
                                                     <div class="col-xs-3">  
-                                                         <a href="data.html">
+                                                         <a href="data?usr=<%= p.getUsername()%>">
                                                         <div class="avatar">
                                                             <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
                                                         </div></a>
                                                     </div>
                                                     <div class="col-xs-6">
                                                         	<%= p.getPatient_name() %> - <%= p.getSex() %>
-                                                        <br />
+                                                        <br/>
                                                         <span><small>联系方式：<%= p.getPhone() %></small></span><br />
                                                          <span><small>证件号：<%= p.getIdCard() %></small></span><br />
                                                         <span><small>病情描述：<%= p.getIllness() %></small></span>
