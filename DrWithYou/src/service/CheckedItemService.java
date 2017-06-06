@@ -14,8 +14,8 @@ import util.TimeUtil;
 public class CheckedItemService {
 	
 	private CheckedItemDao checkedItemDao;
-	private static int WEEK = 604800000;
-	private static int DAY = 86400000;
+	private static long WEEK = 604800000;
+	private static long DAY = 86400000;
 	
 	public CheckedItemService()
 	{
@@ -34,23 +34,22 @@ public class CheckedItemService {
 		JSONArray json = new JSONArray();
 		
 		// 获取当前时间&一周前时间(stamp形式)
-		Timestamp d = new Timestamp(System.currentTimeMillis()); 
-		String now = d.toString();
-		int week_before = Integer.parseInt(now) - WEEK;
+		long now = System.currentTimeMillis();
+		long week_before = now - WEEK;
 		
 		// 获取本周内数据
 		for(int i = 0; i < list.size(); i ++)
 		{
 			CheckedItem temp = list.get(i);
-			int time = Integer.parseInt(temp.getSubmittime());
+			long time = Long.parseLong((temp.getSubmittime()));
 			
 			if(time < week_before)
 				continue;
 			
-			int day = (time - week_before) / DAY;
+			int day = new Long((time - week_before) / DAY).intValue();
 			Map map = new HashMap();
-			map.put("day", day);
-			map.put("value", temp.getValue());
+			map.put("day", day + "");
+			map.put("value", temp.getValue() + "");
 			json.add(map);
 		}
 	

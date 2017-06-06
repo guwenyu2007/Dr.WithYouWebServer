@@ -1,4 +1,6 @@
 ﻿<!doctype html>
+<%@page import="java.util.*"%>
+<%@page import="model.Checklist"%>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -33,119 +35,47 @@
     <script src="assets/js/flotr2.js"></script>
     <script src="assets/js/flotr2.min.js"></script>
     
+    <style type="text/css">
+        #containerplot{height:500px;width:800px;}        
+    </style>
+    
     <script type="text/javascript">
 		function add(usr){		
+			
+			//alert($('#select option:selected').val());
 			
 		    $.ajax({
                  type: "post",
                  url: "data",
                  data: {usr: usr,
-                	    description: $("#description").val()},//提交表单，相当于CheckCorpID.ashx?ID=XXX
+                	    cid: $('#select option:selected').val()},//提交表单，相当于CheckCorpID.ashx?ID=XXX
                  contentType: "application/x-www-form-urlencoded; charset=utf-8", 
-                 success: function(){
+                 success: function(str){
+                	 		//alert(json);
+                	 	   var data = [];
+                	       var json = eval('(' + str + ')'); 
+                	       for(var i = 0; i < json.length; i ++){ 
+                	    	   //alert(json[i].value); 
+                	    	   //alert(json[i].day); 
+                	    	   data.push([parseInt(json[i].day), parseFloat(json[i].value)]);
+                	       } 
+                	 		
+                	       alert(data);
+                	       drawChart(data);
                 	    }
                 }); 
 		}
 		
 		function drawChart(data){
-			  var container = document.getElementById("container");
+			  var container = document.getElementById("containerplot");
 				
 		      var option = {
-		              colors: ['#00A8F0', '#C0D800', '#CB4B4B', '#4DA74D', '#9440ED'],  //线条的颜色
-		              ieBackgroundColor:'#3ec5ff',                    //选中时的背景颜色
-		              title:'用户一周数据提交数据',                      //标题
-		              subtitle:'我是副标题',                           //子标题
-		              shadowSize:5,                                 //线条阴影
-		              defaultType:'lines',                           //图表类型,可选值:bars,bubbles,candles,gantt,lines,markers,pie,points,radar
-		              HtmlText:false,                                //是使用html或者canvas显示 true:使用html  false:使用canvas
-		              fontColor:'#ff3ec5',                           //字体颜色
-		              fontSize:7.5,                                  //字体大小
-		              resolution:1,                                  //分辨率 数字越大越模糊
-		              parseFloat:true,                               //是否将数据转化为浮点型
-		            xaxis: {
-		             ticks:[[1,"一"],[2,"二"],[3,"三"],[4,"四"],[5,"五"],[6,"六"],[7,"七"]], // 自定义X轴
-		                minorTicks: null,
-		                showLabels:true,                             // 是否显示X轴刻度
-		                showMinorLabels:false,
-		                labelsAngle:15,                              //x轴文字倾斜角度
-		                title:'日期',                                 //x轴标题
-		                titleAngle:0,                                //x轴标题倾斜角度
-		                noTicks:7,                                   //当使用自动增长时,x轴刻度的个数
-		                minorTickFreq:null,                             //
-		                tickFormatter: Flotr.defaultTickFormatter,   //刻度的格式化方式
-		                tickDecimals:0,                              //刻度小数点后的位数
-		                min:null,                                    //刻度最小值  X轴起点的值
-		                max:null,                                    //刻度最大值
-		                autoscale:true,
-		                autoscaleMargin:0,
-		                color:null,                             //x轴刻度的颜色
-		                mode:'normal',
-		                timeFormat:null,                            
-		                timeMode:'UTC',                               //For UTC time ('local' for local time).
-		                timeUnit:'year',                             //时间单位 (millisecond, second, minute, hour, day, month, year) 
-		                scaling:'linear',                            //linear or logarithmic
-		                base:Math.E,
-		                titleAlign:'center',                         //标题对齐方式
-		                margin:true
-		            }, 
-		            x2axis:{ 
-		            },
-		            yaxis:{
-		                   //// => Y轴配置与X轴类似
-		                 //ticks: [ [-10,"-10"], [0,"0"], [10,"10"], [20,"20"], [30,"30"],[40,"40"] ],  
-		                 minorTicks: null,      // => format: either [1, 3] or [[1, 'a'], 3]
-		                 showLabels: true,      // => setting to true will show the axis ticks labels, hide otherwise
-		                 showMinorLabels: false,// => true to show the axis minor ticks labels, false to hide
-		                 labelsAngle: 0,        // => labels' angle, in degrees
-		                 title: '数值',           // => axis title
-		                 titleAngle: 90,        // => axis title's angle, in degrees
-		                 noTicks: null,            // => number of ticks for automagically generated ticks
-		                 minorTickFreq: null,   // => number of minor ticks between major ticks for autogenerated ticks
-		                 tickFormatter: Flotr.defaultTickFormatter, // => fn: number, Object -> string
-		                 tickDecimals: 'no',    // => no. of decimals, null means auto
-		                 min: null,             // => min. value to show, null means set automatically
-		                 max: null,             // => max. value to show, null means set automatically
-		                 autoscale: false,      // => Turns autoscaling on with true
-		                 autoscaleMargin: 0,    // => margin in % to add if auto-setting min/max
-		                 color: null,           // => The color of the ticks
-		                 scaling: 'linear',     // => Scaling, can be 'linear' or 'logarithmic'
-		                 base: Math.E,
-		                 titleAlign: 'center',
-		                 margin: true           // => Turn off margins with false
-		            },
-		            y2axis:{
-
-		            },
-		            grid: {
-		                   color: '#545454',      // => 表格外边框和标题以及所有刻度的颜色
-		                   backgroundColor: null, // => 表格背景颜色
-		                   backgroundImage: null, // => 表格背景图片
-		                   watermarkAlpha: 0.4,   // => 水印透明度
-		                   tickColor: '#DDDDDD',  // => 表格内部线条的颜色
-		                   labelMargin: 1,        // => margin in pixels
-		                   verticalLines: true,   // => 表格内部是否显示垂直线条
-		                   minorVerticalLines: null, // => whether to show gridlines for minor ticks in vertical dir.
-		                   horizontalLines: true, // => 表格内部是否显示水平线条
-		                   minorHorizontalLines: null, // => whether to show gridlines for minor ticks in horizontal dir.
-		                   outlineWidth: 1,       // => 表格外边框的粗细
-		                   outline : 'nsew',      // => 超出显示范围后的显示方式
-		                   circular: false        // => 是否以环形的方式显示
-		            },
-		            mouse:{
-		                   track: true,          // => 为true时,当鼠标移动到每个折点时,会显示折点的坐标
-		                   trackAll: true,       // => 为true时,当鼠标在线条上移动时,显示所在点的坐标
-		                   position: 'se',        // => 鼠标事件显示数据的位置 (default south-east)
-		                   relative: false,       // => 当为true时,鼠标移动时,即使不在线条上,也会显示相应点的数据
-		                   trackFormatter: Flotr.defaultTrackFormatter, // => formats the values in the value box
-		                   margin: 5,             // => margin in pixels of the valuebox
-		                   lineColor: '#FF3F19',  // => 鼠标移动到线条上时,点的颜色
-		                   trackDecimals: 0,      // => 数值小数点后的位数
-		                   sensibility: 2,        // => 值越小,鼠标事件越精确
-		                   trackY: true,          // => whether or not to track the mouse in the y axis
-		                   radius: 3,             // => radius of the track point
-		                   fillColor: null,       // => color to fill our select bar with only applies to bar and similar graphs (only bars for now)
-		                   fillOpacity: 0.4       // => o
-		            }
+		    		  xaxis: {
+		    		      minorTickFreq: 4
+		    		    },
+		    		    grid: {
+		    		        minorVerticalLines: true
+		    		      }
 		         };
 			      
 			     // Draw Graph
@@ -261,14 +191,26 @@
                        <input type="date" class="form-control border-input" placeholder="Username" value="女">
                 </div>
           </div>
- -->
+           -->
+           
+          <% Map map = (Map)request.getAttribute("map"); %>
+
            <div class="col-md-4">
                   <div class="form-group">
                       <label>检查项</label>
-                 <select class="form-control border-input" style="position:absolute；left：400px">
-                    <option value ="volvo">糖尿病</option>
-                    <option value ="saab">心脏病</option>
-                    <option value="opel">怀孕</option>
+                 <select id="select" class="form-control border-input" style="position:absolute；left：400px">
+                 
+                 <% 
+
+                    Set set = map.keySet();
+                    Iterator<Integer> iter = set.iterator();  
+					
+					while (iter.hasNext()) {  
+						int cid = iter.next();
+				%>		
+				    <option value ="<%= cid %>"><%= map.get(cid) %></option>
+				
+				<%} %>
                   </select>
                 </div>
            </div>
@@ -289,9 +231,7 @@
                                 <h4 class="title">病人数据</h4>
                                 <p class="category">一周变化</p>
                             </div>
-                            <div class="content" id="container">
-                               
-                            </div>
+                            <div id="containerplot"></div>
                         </div>
                     </div>
                 </div>

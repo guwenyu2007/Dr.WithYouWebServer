@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -57,11 +59,26 @@ public class DataServlet extends HttpServlet {
 		// 获取该病人检查项列表id
 		ArrayList<Integer> idlist = chservice.getPatientChecklist(usr);
 		
-		// 检查项id - 检查项名称
+		// map存储：检查项id - 检查项名称
+		Map map = new HashMap();
+		for(int i = 0; i < idlist.size(); i ++)
+		{
+			int cid = idlist.get(i);
+			String name = "";
+			for(int j = 0; j < list.size(); j ++)
+			{
+				if(list.get(j).getCid() == cid)
+				{
+					name = list.get(j).getChecklist_name();
+					break;
+				}
+			}
+			
+			map.put(cid, name);
+		}
 		
-		
-		
-		
+		request.setAttribute("map", map);
+				
 		request.getRequestDispatcher("/data.jsp").forward(request, response);
 	}
 
@@ -71,6 +88,15 @@ public class DataServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+		
+		int cid = Integer.parseInt(request.getParameter("cid"));
+		String usr = request.getParameter("usr");
+		
+		CheckedItemService service = new CheckedItemService();
+		String json = service.getData(usr, cid);
+		System.out.println(json);
+		
+		response.getWriter().write(json);
 	}
 
 }

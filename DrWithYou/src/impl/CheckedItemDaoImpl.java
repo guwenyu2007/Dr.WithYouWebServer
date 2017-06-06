@@ -46,6 +46,7 @@ public class CheckedItemDaoImpl implements CheckedItemDao{
             	item.setValue(rs.getFloat("value"));  
             	//item.setSubmittime(TimeUtil.stampToDate(rs.getString("submittime")));
             	item.setSubmittime(rs.getString("submittime"));
+            	list.add(item);
             }
 
         } catch (SQLException e) {
