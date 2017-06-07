@@ -32,11 +32,13 @@
     <link href="assets/css/themify-icons.css" rel="stylesheet">
     
     <!-- flotr2 - js lib for line chart -->
-    <script src="assets/js/flotr2.js"></script>
-    <script src="assets/js/flotr2.min.js"></script>
+
     
     <style type="text/css">
-        #containerplot{height:500px;width:800px;}        
+        #containerplot {
+         height:500px;
+         width:800px;
+         margin: 8px auto}        
     </style>
     
     <script type="text/javascript">
@@ -144,7 +146,7 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" >陈翠花</a>
+                    <a class="navbar-brand" >用户信息</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -242,6 +244,9 @@
     <!--   Core JS Files   -->
     <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+	
+	<script src="assets/js/flotr2.js"></script>
+    <script src="assets/js/flotr2.min.js"></script>
 
 	<!--  Checkbox, Radio & Switch Plugins -->
 	<script src="assets/js/bootstrap-checkbox-radio.js"></script>
