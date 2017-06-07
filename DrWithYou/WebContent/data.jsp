@@ -47,16 +47,22 @@
 			//alert($('#select option:selected').val());
 			
 			// 检查date前后时间
-			var startDate = document.getElementById("startDate").value;
-			var endDate = document.getElementById("endDate").value;
-			alert(startDate + " " + endDate + " " + (startDate<endDate));
-			
+			//var startDate = document.getElementById("startDate").value;
+			//var endDate = document.getElementById("endDate").value;
+			//if(startDate >= endDate || startDate == null || endDate == null)
+			//{
+			//	alert("请重新选择日期！");
+			//	return;
+			//}
+			//alert(startDate + " " + endDate + " " + (startDate<endDate));
 			
 			
 		    $.ajax({
                  type: "post",
                  url: "data",
-                 data: {usr: usr,
+                 data: {usr:usr,
+                	   // startDate:startDate,
+                	   // endDate:endDate,
                 	    cid: $('#select option:selected').val()},//提交表单，相当于CheckCorpID.ashx?ID=XXX
                  contentType: "application/x-www-form-urlencoded; charset=utf-8", 
                  success: function(str){
@@ -78,7 +84,7 @@
                 	    		   minY = y;
                 	       } 
                 	 		
-                	       alert(data);
+                	       //alert(data);
                 	       drawChart(data, maxX, minY - 10, maxY + 10);
                 	    }
                 }); 
@@ -232,25 +238,25 @@
             <ul class="nav">
                  
                 <li class="active">
-                    <a href="bingren.html">
+                    <a href="UserManage">
                         <i class="ti-user"></i>
                         <p>病人管理</p>
                     </a>
                 </li>
                  <li >
-                    <a href="bingqing.html">
+                    <a href="patientCheckpoint">
                         <i class="ti-view-list-alt"></i>
                         <p>病情管理</p>
                     </a>
                 </li>
                 <li>
-                    <a href="moban.html">
+                    <a href="templet">
                         <i class="ti-panel"></i>
                         <p>模版管理</p>
                     </a>
                 </li>
                   <li>
-                    <a href="jianchaxiang.html">
+                    <a href="checklist">
                         <i class="ti-pencil-alt2"></i>
                         <p>检查项设置</p>
                     </a>
@@ -275,6 +281,7 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
+                    <!-- 
                         <li>
                             <a href="xiugaixinxi.html">
                                 <i class="ti-settings"></i>
@@ -292,9 +299,10 @@
                                 <i class="ti-bell"></i>
                                 <p>修改密码</p>
                             </a>
-                        </li>
+                        </li>  
+                         -->
                          <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="logout">
                                 <p>退出</p>
                             </a>
                         </li>
@@ -305,7 +313,7 @@
         </nav>
 
         <br><br>
-        
+        <!--  
          <div class="col-md-4">
            <div class="form-group">
                 <label>开始时间</label>
@@ -317,7 +325,7 @@
                    <label>结束时间</label>
                        <input type="date" id="endDate" class="form-control border-input">
                 </div>
-          </div>
+          </div> -->
           
            
           <% Map map = (Map)request.getAttribute("map"); %>

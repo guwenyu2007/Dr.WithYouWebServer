@@ -139,7 +139,11 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">病情模版列表</h4> <br />
+                                 <div class="icon-big icon-danger text-center" style="position:absolute;margin:1px 0 0 1px">
+                                            <i class="ti-wallet"></i>
+                                        </div>   
+                                         <h4 class="title" style="position:absolute;margin:12px 0 0 60px">病情模板列表</h4> <br />                             
+                          </br>
                                  <div class="text-right">
                                         <a href="addTemplet">
                                         <button type="button" class="btn btn-info btn-fill btn-wd" >添加模板</button>

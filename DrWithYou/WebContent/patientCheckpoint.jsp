@@ -72,13 +72,13 @@
 
             <ul class="nav">
                 
-                <li>
+                <li >
                     <a href="UserManage">
                         <i class="ti-user"></i>
                         <p>病人管理</p>
                     </a>
                 </li>
-                 <li>
+                 <li  class="active">
                     <a href="patientCheckpoint">
                         <i class="ti-view-list-alt"></i>
                         <p>病情管理</p>
@@ -141,8 +141,11 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">病情设置列表</h4>
-                            </div>
+                                <div class="icon-big icon-danger text-center" style="position:absolute;margin:1px 0 0 1px">
+                                            <i class="ti-server"></i>
+                                        </div>   
+                                         <h4 class="title" style="position:absolute;margin:12px 0 0 60px">病情列表</h4> <br />                             
+                           </br> </br> 
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-striped">
                                     <thead>
