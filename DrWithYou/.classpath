@@ -19,5 +19,11 @@
 	<classpathentry kind="lib" path="F:/learning/junior/软件工程综合实践/Database/json/commons-lang-2.5.jar"/>
 	<classpathentry kind="lib" path="F:/learning/junior/软件工程综合实践/Database/json/commons-logging.jar"/>
 	<classpathentry kind="lib" path="F:/learning/junior/软件工程综合实践/Database/json/ezmorph-1.0.3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-lang-2.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ezmorph-1.0.3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
